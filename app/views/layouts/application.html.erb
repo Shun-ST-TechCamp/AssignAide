@@ -11,6 +11,11 @@
   </head>
 
   <body>
-    <%= yield %>
+  <div class="wrapper">
+    <%= render 'layouts/sidebar'%>
+    <div class="main-content">
+      <%= yield %>
+    </div>
+  </div>
   </body>
 </html>

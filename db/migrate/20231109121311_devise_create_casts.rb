@@ -10,14 +10,14 @@ class DeviseCreateCasts < ActiveRecord::Migration[7.0]
       t.string  :family_name,        null: false
       t.integer :company_id,         null: false
       t.integer :health,             null: false
-      t.integer :sara_shiwake_skill, null: false
-      t.integer :sara_arai_skill,    null: false
-      t.integer :sara_nagashi_skill, null: false
-      t.integer :sara_huki_skill,    null: false
-      t.integer :kigu_arai_skill,    null: false
-      t.integer :kigu_nagashi_skill, null: false
-      t.integer :kigu_huki_skill,    null: false
-      t.integer :kigu_migaki_skill,  null: false
+      t.integer :sara_shiwake_skill, null: false, default: 1
+      t.integer :sara_arai_skill,    null: false, default: 1
+      t.integer :sara_nagashi_skill, null: false, default: 1
+      t.integer :sara_huki_skill,    null: false, default: 1
+      t.integer :kigu_arai_skill,    null: false, default: 1
+      t.integer :kigu_nagashi_skill, null: false, default: 1
+      t.integer :kigu_huki_skill,    null: false, default: 1
+      t.integer :kigu_migaki_skill,  null: false, default: 1
 
       ## Recoverable
       t.string   :reset_password_token

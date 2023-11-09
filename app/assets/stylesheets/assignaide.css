@@ -8,7 +8,7 @@
   height: 100vh;
 }
 
-.main-view {
+.main-content {
   background-color: #ffffff;
   width: calc(100vw - 300px);  
 }
