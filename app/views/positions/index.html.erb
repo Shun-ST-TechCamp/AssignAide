@@ -2,7 +2,9 @@
   <div class="side-bar">
     <%= render "side_bar" %>
   </div>
-  <div class="main-view">
-    <%= render "main_view" %>
-  </div>
+  <turbo-frame id="main-view">
+    <div class="main-view">
+      <%= render "main_view" %>
+    </div>
+  </turbo-frame>
 </div>

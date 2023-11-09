@@ -1,0 +1,32 @@
+.casts-index {
+  background-color: #ffffff;
+  width: calc(100vw - 300px);  
+  overflow: auto;
+}
+
+.cast-index-title{
+  font-size: 35px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+table {
+  margin: 20px auto 0 auto;
+  width: 60%; 
+  border-collapse: collapse; 
+  text-align: center; 
+}
+
+th, td {
+  border: 1px solid #ddd; 
+  padding: 8px; 
+}
+
+th {
+  background-color: #f2f2f2; 
+  color: black; 
+}
+
+.cast-on{
+  margin: 30px 0 30px 20%;
+}
