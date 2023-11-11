@@ -16,6 +16,8 @@
 
   <% if @cast.image.attached? %>
    <%= image_tag @cast.image.variant(resize: "200x200"), class: "cast-image" %>
+  <% else %>
+   <%= image_tag 'default_image.png', class: "cast-image" %>
   <% end %>
   
   <div class="field">

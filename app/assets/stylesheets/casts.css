@@ -30,3 +30,9 @@ th {
 .cast-on{
   margin: 30px 0 30px 20%;
 }
+
+.cast-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover; 
+}
