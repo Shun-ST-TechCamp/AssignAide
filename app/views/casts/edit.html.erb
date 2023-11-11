@@ -14,9 +14,10 @@
     <%= @cast.family_name + @cast.first_name %>
   </div>
 
-
-  <!-- その他のフィールド -->
-
+  <% if @cast.image.attached? %>
+   <%= image_tag @cast.image.variant(resize: "200x200"), class: "cast-image" %>
+  <% end %>
+  
   <div class="field">
     <%= form.label :sara_shiwake_skill_id, "皿仕分けスキル" %>
     <%= form.collection_select :sara_shiwake_skill_id, SkillLevel.all, :id, :name %>

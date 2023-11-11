@@ -5,6 +5,7 @@ class CastsController < ApplicationController
   def index
     @casts = Cast.all
   end
+  
 
   def edit
 
@@ -13,6 +14,9 @@ class CastsController < ApplicationController
   def update
 
     if @cast.update(cast_params)
+      if params[:cast][:image].present?
+        @cast.image.attach(params[:cast][:image])
+      end
       redirect_to casts_path, notice: 'キャストの情報を更新しました。'
     else
       render :edit
@@ -22,10 +26,11 @@ class CastsController < ApplicationController
   private
 
   def cast_params
+    permitted_attributes = [:first_name, :family_name, :company_id, :health, :sara_shiwake_skill_id, :sara_arai_skill_id, :sara_nagashi_skill_id, :sara_huki_skill_id, :kigu_arai_skill_id, :kigu_nagashi_skill_id, :kigu_huki_skill_id, :silver_migaki_skill_id, :image]
     if current_cast.admin?
-      params.require(:cast).permit(:first_name, :family_name, :company_id, :health, :sara_shiwake_skill_id, :sara_arai_skill_id, :sara_nagashi_skill_id, :sara_huki_skill_id, :kigu_arai_skill_id, :kigu_nagashi_skill_id, :kigu_huki_skill_id, :silver_migaki_skill_id)
+      params.require(:cast).permit(permitted_attributes)
     else
-      params.require(:cast).permit(:email, :password, :password_confirmation, :current_password)
+      params.require(:cast).permit(:email, :password, :password_confirmation, :current_password, :image)
     end
   end
 

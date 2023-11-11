@@ -1,7 +1,13 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2>Edit  <%= current_cast.family_name %> <%= current_cast.first_name %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :image %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.file_field :image, id: "image-input" %>
+    <div id="image-preview"></div>
+  </div>
 
   <div class="field">
     <%= f.label :email %><br />
