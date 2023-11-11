@@ -12,36 +12,19 @@
           <th>器具フキ</th>
           <th>シルバーフキ</th>
         </tr>
+         <% @casts.each do |cast| %>
         <tr>
-          <td>ネコさん</td>
-          <td>★★☆</td>
-          <td>★☆☆</td>
-          <td>★☆☆</td>
-          <td>★★☆</td>
-          <td>★★★</td>
-          <td>★☆☆</td>
-          <td>★★★</td>
-        </tr>
-        <tr>
-          <td>イヌさん</td>
+          <td><%= link_to cast.family_name + cast.first_name, edit_cast_path(cast) %></td>
+          <td>★★☆</td> 
           <td>★★☆</td>
           <td>★★☆</td>
-          <td>★☆☆</td>
           <td>★★☆</td>
-          <td>★☆☆</td>
-          <td>★☆☆</td>
+          <td>★★☆</td>
+          <td>★★☆</td>
           <td>★★☆</td>
         </tr>
-          <tr>
-          <td>アヒルさん</td>
-          <td>★☆☆</td>
-          <td>★★☆</td>
-          <td>★★★</td>
-          <td>★★☆</td>
-          <td>★☆☆</td>
-          <td>★★★</td>
-          <td>★★☆</td>
-        </tr>
+      <% end %>
+    </table>
   </div>
 
   <div class="cast-on">

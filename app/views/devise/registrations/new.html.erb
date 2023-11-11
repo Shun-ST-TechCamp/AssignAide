@@ -1,7 +1,7 @@
 <div class="contents row">
   <div class="container">
     <h2>Sign up</h2>
-    <%= form_with model: @casts, url: cast_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
+    <%= form_with model: @cast, url: cast_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="field">
@@ -10,12 +10,12 @@
       </div>
       
       <div class="field">
-        <%= f.label :名字 %><br />
+        <%= f.label :family_name %><br />
         <%= f.text_field :family_name %>
       </div>
 
       <div class="field">
-        <%= f.label :名前 %><br />
+        <%= f.label :first_name %><br />
         <%= f.text_field :first_name %>
       </div>
 
