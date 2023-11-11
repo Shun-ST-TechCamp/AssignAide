@@ -2,6 +2,8 @@ class Ability
   include CanCan::Ability
 
   def initialize(cast)
+    cast ||= Cast.new
+
     if cast.admin?
       can :manage, :all
     else

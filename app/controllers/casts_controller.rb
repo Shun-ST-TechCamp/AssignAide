@@ -28,4 +28,10 @@ class CastsController < ApplicationController
       params.require(:cast).permit(:email, :password, :password_confirmation, :current_password)
     end
   end
+
+  protected
+
+  def current_ability
+    @current_ability ||= Ability.new(current_cast)
+  end
 end

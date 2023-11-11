@@ -21,6 +21,10 @@ class Cast < ApplicationRecord
           image.attached?
          end
 
+         def admin?
+          admin
+        end
+
          has_one_attached :image
 
          extend ActiveHash::Associations::ActiveRecordExtensions
