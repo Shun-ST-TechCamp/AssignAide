@@ -9,17 +9,28 @@ class Cast < ApplicationRecord
          validates :company_id, presence: true, uniqueness: true, numericality: {only_integer: true}, length: { in: 8..8,message: "8桁で入力してください" },
                                                                   format: { with: /\A[0-9]+\z/ }
          validates :health, presence:true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100,message: "0から100で入力してください" }
-         validates :sara_shiwake_skill, presence:true
-         validates :sara_arai_skill, presence:true
-         validates :sara_nagashi_skill, presence:true
-         validates :sara_huki_skill, presence:true
-         validates :kigu_arai_skill, presence:true
-         validates :kigu_nagashi_skill, presence:true
-         validates :silver_migaki_skill, presence:true
+         validates :sara_shiwake_skill_id, presence:true
+         validates :sara_arai_skill_id, presence:true
+         validates :sara_nagashi_skill_id, presence:true
+         validates :sara_huki_skill_id, presence:true
+         validates :kigu_arai_skill_id, presence:true
+         validates :kigu_nagashi_skill_id, presence:true
+         validates :silver_migaki_skill_id, presence:true
 
          def was_attached?
           image.attached?
          end
 
          has_one_attached :image
+
+         extend ActiveHash::Associations::ActiveRecordExtensions
+
+         belongs_to_active_hash :sara_shiwake_skill, class_name: 'SkillLevel'
+         belongs_to_active_hash :sara_arai_skill, class_name: 'SkillLevel'
+         belongs_to_active_hash :sara_nagashi_skill, class_name: 'SkillLevel'
+         belongs_to_active_hash :sara_huki_skill, class_name: 'SkillLevel'
+         belongs_to_active_hash :kigu_arai_skill, class_name: 'SkillLevel'
+         belongs_to_active_hash :kigu_nagashi_skill, class_name: 'SkillLevel'
+         belongs_to_active_hash :kigu_huki_skill, class_name: 'SkillLevel'
+         belongs_to_active_hash :silver_migaki_skill, class_name: 'SkillLevel'
 end

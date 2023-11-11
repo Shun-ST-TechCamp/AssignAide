@@ -15,13 +15,13 @@
          <% @casts.each do |cast| %>
         <tr>
           <td><%= link_to cast.family_name + cast.first_name, edit_cast_path(cast) %></td>
-          <td>★★☆</td> 
-          <td>★★☆</td>
-          <td>★★☆</td>
-          <td>★★☆</td>
-          <td>★★☆</td>
-          <td>★★☆</td>
-          <td>★★☆</td>
+          <td><%= cast.sara_shiwake_skill.name %></td> 
+          <td><%= cast.sara_nagashi_skill.name %></td>
+          <td><%= cast.sara_huki_skill.name %></td>
+          <td><%= cast.kigu_arai_skill.name %></td>
+          <td><%= cast.kigu_nagashi_skill.name %></td>
+          <td><%= cast.kigu_huki_skill.name %></td>
+          <td><%= cast.silver_migaki_skill.name %></td>
         </tr>
       <% end %>
     </table>

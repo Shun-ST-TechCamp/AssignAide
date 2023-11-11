@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_09_142523) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_11_115652) do
   create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -46,14 +46,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_142523) do
     t.string "family_name", null: false
     t.integer "company_id", null: false
     t.integer "health", default: 100, null: false
-    t.integer "sara_shiwake_skill", default: 1, null: false
-    t.integer "sara_arai_skill", default: 1, null: false
-    t.integer "sara_nagashi_skill", default: 1, null: false
-    t.integer "sara_huki_skill", default: 1, null: false
-    t.integer "kigu_arai_skill", default: 1, null: false
-    t.integer "kigu_nagashi_skill", default: 1, null: false
-    t.integer "kigu_huki_skill", default: 1, null: false
-    t.integer "silver_migaki_skill", default: 1, null: false
+    t.integer "sara_shiwake_skill_id", default: 1, null: false
+    t.integer "sara_arai_skill_id", default: 1, null: false
+    t.integer "sara_nagashi_skill_id", default: 1, null: false
+    t.integer "sara_huki_skill_id", default: 1, null: false
+    t.integer "kigu_arai_skill_id", default: 1, null: false
+    t.integer "kigu_nagashi_skill_id", default: 1, null: false
+    t.integer "kigu_huki_skill_id", default: 1, null: false
+    t.integer "silver_migaki_skill_id", default: 1, null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
