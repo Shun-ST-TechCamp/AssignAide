@@ -53,7 +53,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_142523) do
     t.integer "kigu_arai_skill", default: 1, null: false
     t.integer "kigu_nagashi_skill", default: 1, null: false
     t.integer "kigu_huki_skill", default: 1, null: false
-    t.integer "kigu_migaki_skill", default: 1, null: false
+    t.integer "silver_migaki_skill", default: 1, null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

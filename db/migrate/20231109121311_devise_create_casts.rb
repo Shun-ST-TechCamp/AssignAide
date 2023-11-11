@@ -17,7 +17,7 @@ class DeviseCreateCasts < ActiveRecord::Migration[7.0]
       t.integer :kigu_arai_skill,    null: false, default: 1
       t.integer :kigu_nagashi_skill, null: false, default: 1
       t.integer :kigu_huki_skill,    null: false, default: 1
-      t.integer :kigu_migaki_skill,  null: false, default: 1
+      t.integer :silver_migaki_skill,  null: false, default: 1
 
       ## Recoverable
       t.string   :reset_password_token
