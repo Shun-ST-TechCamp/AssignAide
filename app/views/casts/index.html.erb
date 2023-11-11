@@ -5,6 +5,7 @@
         <tr>
           <th>名前</th>
           <th>皿仕分け</th>
+          <th>皿洗い</th>
           <th>皿流し</th>
           <th>皿拭き</th>
           <th>器具洗い</th>
@@ -16,6 +17,7 @@
         <tr>
           <td><%= link_to cast.family_name + cast.first_name, edit_cast_path(cast) %></td>
           <td><%= cast.sara_shiwake_skill.name %></td> 
+          <td><%= cast.sara_arai_skill.name %></td> 
           <td><%= cast.sara_nagashi_skill.name %></td>
           <td><%= cast.sara_huki_skill.name %></td>
           <td><%= cast.kigu_arai_skill.name %></td>
@@ -25,10 +27,6 @@
         </tr>
       <% end %>
     </table>
-  </div>
-
-  <div class="cast-on">
-    <a href="<%= new_cast_registration_path %>" >キャストを追加する</a>
   </div>
 </div>
 

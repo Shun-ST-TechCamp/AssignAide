@@ -28,6 +28,11 @@
   </div>
 
   <div class="field">
+    <%= form.label :sara_nagashi_skill_id, "皿流しスキル" %>
+    <%= form.collection_select :sara_nagashi_skill_id, SkillLevel.all, :id, :name %>
+  </div>
+
+  <div class="field">
     <%= form.label :sara_huki_skill_id, "皿フキスキル" %>
     <%= form.collection_select :sara_huki_skill_id, SkillLevel.all, :id, :name %>
   </div>
@@ -35,6 +40,11 @@
   <div class="field">
     <%= form.label :kigu_arai_skill_id, "器具洗いスキル" %>
     <%= form.collection_select :kigu_arai_skill_id, SkillLevel.all, :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :kigu_huki_skill_id, "器具流しスキル" %>
+    <%= form.collection_select :kigu_nagashi_skill_id, SkillLevel.all, :id, :name %>
   </div>
 
   <div class="field">
