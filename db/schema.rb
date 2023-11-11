@@ -45,7 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_142523) do
     t.string "first_name", null: false
     t.string "family_name", null: false
     t.integer "company_id", null: false
-    t.integer "health", null: false
+    t.integer "health", default: 100, null: false
     t.integer "sara_shiwake_skill", default: 1, null: false
     t.integer "sara_arai_skill", default: 1, null: false
     t.integer "sara_nagashi_skill", default: 1, null: false

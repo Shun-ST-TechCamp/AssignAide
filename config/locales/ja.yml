@@ -1,4 +1,18 @@
 ja:
-  time:
-    formats:
-      default: "%Y/%m/%d %H:%M:%S"
+  activerecord:
+    errors:
+      models:
+        cast:
+          attributes:
+            email:
+              blank: "メールアドレスを入力してください"
+            password:
+              blank: "パスワードを入力してください"
+            first_name:
+              blank: "名字を入力してください"
+            family_name:
+              blank: "名前を入力してください"
+            company_id:
+              blank: "会社IDを入力してください"
+            image:
+              blank: "画像を選択してください"

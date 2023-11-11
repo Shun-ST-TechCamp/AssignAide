@@ -8,8 +8,8 @@ class DeviseCreateCasts < ActiveRecord::Migration[7.0]
       t.string  :encrypted_password, null: false, default: ""
       t.string  :first_name,         null: false
       t.string  :family_name,        null: false
-      t.integer :company_id,         null: false
-      t.integer :health,             null: false
+      t.integer :company_id,         null: false, unique: true
+      t.integer :health,             null: false, default: 100
       t.integer :sara_shiwake_skill, null: false, default: 1
       t.integer :sara_arai_skill,    null: false, default: 1
       t.integer :sara_nagashi_skill, null: false, default: 1

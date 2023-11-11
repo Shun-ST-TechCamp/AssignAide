@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :family_name, :company_id, :health,:sara_shiwake_skill,:sara_arai_skill,:sara_nagashi_skill,:sara_huki_skill,:kigu_arai_skill,:kigu_nagashi_skill,:kigu_huki_skill,:kigu_migaki_skill])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :family_name, :company_id])
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:company_id])
     devise_parameter_sanitizer.permit(:account_update, keys:[:first_name, :family_name, :company_id, :health,:sara_shiwake_skill,:sara_arai_skill,:sara_nagashi_skill,:sara_huki_skill,:kigu_arai_skill,:kigu_nagashi_skill,:kigu_huki_skill,:kigu_migaki_skill])
   end
 end

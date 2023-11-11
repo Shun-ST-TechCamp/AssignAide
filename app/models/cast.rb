@@ -4,10 +4,11 @@ class Cast < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-         validates :first_name, presence: true
-         validates :family_name, presence: true
-         validates :company_id, presence: true, uniqueness: true
-         validates :health, presence:true
+         validates :first_name, presence: true, format: { with: /\A[\p{katakana}　ー－&&[^ -~｡-ﾟ]]+\z/,message: "全角カタカナのみで入力して下さい"}
+         validates :family_name, presence: true,format: { with: /\A[\p{katakana}　ー－&&[^ -~｡-ﾟ]]+\z/,message: "全角カタカナのみで入力して下さい"}
+         validates :company_id, presence: true, uniqueness: true, numericality: {only_integer: true}, length: { in: 8,message: "8桁で入力してください" },
+                                                                  format: { with: /\A[0-9]+\z/ }
+         validates :health, presence:true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100,message: "0から100で入力してください" }
          validates :sara_shiwake_skill, presence:true
          validates :sara_arai_skill, presence:true
          validates :sara_nagashi_skill, presence:true
@@ -15,12 +16,7 @@ class Cast < ApplicationRecord
          validates :kigu_arai_skill, presence:true
          validates :kigu_nagashi_skill, presence:true
          validates :silver_migaki_skill, presence:true
-         validates :image,               presence: true
 
-
-         def image_presence
-          errors.add(:image, "must be attached") unless image.attached?
-        end
          def was_attached?
           image.attached?
          end
