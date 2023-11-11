@@ -1,0 +1,55 @@
+<%= form_with(model: @cast, local: true) do |form| %>
+  <% if @cast.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cast.errors.count, "error") %> が存在します:</h2>
+      <ul>
+        <% @cast.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= @cast.family_name + @cast.first_name %>
+  </div>
+
+
+  <!-- その他のフィールド -->
+
+  <div class="field">
+    <%= form.label :sara_shiwake_skill_id, "皿仕分けスキル" %>
+    <%= form.collection_select :sara_shiwake_skill_id, SkillLevel.all, :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sara_arai_skill_id, "皿洗いスキル" %>
+    <%= form.collection_select :sara_arai_skill_id, SkillLevel.all, :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sara_huki_skill_id, "皿フキスキル" %>
+    <%= form.collection_select :sara_huki_skill_id, SkillLevel.all, :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :kigu_arai_skill_id, "器具洗いスキル" %>
+    <%= form.collection_select :kigu_arai_skill_id, SkillLevel.all, :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :kigu_huki_skill_id, "器具フキスキル" %>
+    <%= form.collection_select :kigu_huki_skill_id, SkillLevel.all, :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :silver_migaki_skill_id, "シルバー磨き" %>
+    <%= form.collection_select :silver_migaki_skill_id, SkillLevel.all, :id, :name %>
+  </div>
+
+  <!-- その他のスキルレベルフィールド -->
+
+  <div class="actions">
+    <%= form.submit "更新" %>
+  </div>
+<% end %>
