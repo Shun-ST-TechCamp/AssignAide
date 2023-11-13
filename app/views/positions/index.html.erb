@@ -1,1 +1,19 @@
-aaaaa
+<h1>Positions</h1>
+<h2>~9:00<h2>
+<table>
+  <thead>
+    <tr>
+      <th>Position Name</th>
+      <th>worker</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @positions.each do |position| %>
+      <tr>
+        <td><%= t("positions.#{position.position_name}") %></td>
+        <td><%= "" %></td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
