@@ -69,7 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_13_002044) do
     t.integer "capacity", null: false
     t.integer "fatigue_level", null: false
     t.integer "position_type", null: false
-    t.integer "equired_skill_level", null: false
+    t.integer "required_skill_level", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

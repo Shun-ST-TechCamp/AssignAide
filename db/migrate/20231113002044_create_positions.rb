@@ -5,7 +5,7 @@ class CreatePositions < ActiveRecord::Migration[7.0]
       t.integer :capacity,              null: false
       t.integer :fatigue_level,         null: false
       t.integer :position_type,         null: false
-      t.integer :equired_skill_level,   null: false
+      t.integer :required_skill_level,   null: false
       t.timestamps
     end
   end
