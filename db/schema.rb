@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_15_023116) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_15_103452) do
   create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -77,17 +77,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_15_023116) do
   create_table "schedules", charset: "utf8", force: :cascade do |t|
     t.bigint "cast_id", null: false
     t.bigint "position_id", null: false
-    t.date "date", null: false
+    t.bigint "workday_id", null: false
     t.time "start_time", null: false
     t.time "end_time", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cast_id"], name: "index_schedules_on_cast_id"
     t.index ["position_id"], name: "index_schedules_on_position_id"
+    t.index ["workday_id"], name: "index_schedules_on_workday_id"
+  end
+
+  create_table "workdays", charset: "utf8", force: :cascade do |t|
+    t.bigint "cast_id", null: false
+    t.date "date", null: false
+    t.time "start_time", null: false
+    t.time "end_time", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cast_id"], name: "index_workdays_on_cast_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "schedules", "casts"
   add_foreign_key "schedules", "positions"
+  add_foreign_key "schedules", "workdays"
+  add_foreign_key "workdays", "casts"
 end

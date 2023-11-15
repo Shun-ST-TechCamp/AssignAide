@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :casts, only: [:index, :new, :create, :edit, :update]
   resources :positions, only: [:index]
   resources :schedules, only: [:index, :new, :create]
+  resources :workdays,  only: [:index]
 end
