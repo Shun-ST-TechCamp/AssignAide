@@ -1,0 +1,23 @@
+<h1>スケジュール一覧</h1>
+<h2>スケジュール管理</h2>
+<%= link_to "スケジュールを追加", "#" %>
+<table>
+  <thead>
+    <tr>
+      <th>キャスト名</th>
+      <th>日付</th>
+      <th>開始時間</th>
+      <!-- 他の必要なカラム -->
+    </tr>
+  </thead>
+  <tbody>
+    <% @workdays.each do |workday| %>
+      <tr>
+        <td><%= workday.cast.name %></td> <!-- キャスト名を表示 -->
+        <td><%= workday.date %></td> <!-- 日付を表示 -->
+        <td><%= workday.start_time %></td> <!-- 開始時間を表示 -->
+        <!-- 他のカラムの値を表示 -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
