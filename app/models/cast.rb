@@ -25,9 +25,6 @@ class Cast < ApplicationRecord
           admin
         end
 
-         has_one_attached :image
-         has_many :schedules
-
          extend ActiveHash::Associations::ActiveRecordExtensions
 
          belongs_to_active_hash :sara_shiwake_skill, class_name: 'SkillLevel'
@@ -42,4 +39,9 @@ class Cast < ApplicationRecord
          def full_name
           "#{family_name} #{first_name}"
          end
+
+         has_one_attached :image
+         has_many :schedules
+         has_many :workdays
+
 end
