@@ -1,0 +1,44 @@
+<%= form_with(model: @schedule, local: true) do |form| %>
+  <% if @schedule.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@schedule.errors.count, "error") %> prohibited this schedule from being saved:</h2>
+
+      <ul>
+        <% @schedule.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :cast_id %>
+    <%= form.collection_select :cast_id, Cast.all, :id, :full_name, include_blank: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :position_id %>
+    <%= form.collection_select :position_id, Position.all, :id, :position_name, include_blank: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_field :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_time %>
+    <%= form.time_select :start_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_time %>
+    <%= form.time_select :end_time %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "スケジュールを作成する" %>
+  </div>
+<% end %>
+
+<%= link_to '戻る', schedules_path %>

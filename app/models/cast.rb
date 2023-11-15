@@ -26,6 +26,7 @@ class Cast < ApplicationRecord
         end
 
          has_one_attached :image
+         has_many :schedules
 
          extend ActiveHash::Associations::ActiveRecordExtensions
 
@@ -37,4 +38,8 @@ class Cast < ApplicationRecord
          belongs_to_active_hash :kigu_nagashi_skill, class_name: 'SkillLevel'
          belongs_to_active_hash :kigu_huki_skill, class_name: 'SkillLevel'
          belongs_to_active_hash :silver_migaki_skill, class_name: 'SkillLevel'
+
+         def full_name
+          "#{family_name} #{first_name}"
+         end
 end
