@@ -6,6 +6,11 @@ class CastsController < ApplicationController
     @casts = Cast.all
   end
   
+  def show
+    @cast = Cast.find(params[:id])
+    @workdays = @cast.workdays
+  end
+  
 
   def edit
 

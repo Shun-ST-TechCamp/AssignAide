@@ -5,9 +5,14 @@ class WorkdaysController < ApplicationController
     @workdays = Workday.joins(:cast).order(sort_column + " " + sort_direction)
   end
 
-  def new
+   def new
     @workday = Workday.new
     @casts = Cast.all.map { |cast| [cast.full_name, cast.id] }
+  end
+
+  def show
+    @workday = Workday.find(params[:id])
+    @schedules = @workday.schedules.includes(:position)
   end
 
   def create
@@ -23,6 +28,8 @@ class WorkdaysController < ApplicationController
     @workday = Workday.find(params[:id])
     @casts = Cast.all.map {|cast| [cast.full_name, cast.id]} 
   end
+
+
 
   def update
     @workday = Workday.find(params[:id])
