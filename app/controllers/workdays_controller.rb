@@ -19,6 +19,21 @@ class WorkdaysController < ApplicationController
     end
   end
 
+  def edit
+    @workday = Workday.find(params[:id])
+    @casts = Cast.all.map {|cast| [cast.full_name, cast.id]} 
+  end
+
+  def update
+    @workday = Workday.find(params[:id])
+    if @workday.update(workday_params)
+      redirect_to workdays_path, notice: 'スケジュールを更新しました'
+    else
+      render :edit
+    end
+  end
+
+
   private
 
   def workday_params

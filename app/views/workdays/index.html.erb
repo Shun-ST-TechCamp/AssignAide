@@ -14,7 +14,7 @@
   <tbody>
     <% @workdays.each do |workday| %>
       <tr>
-        <td><%= workday.cast.full_name %></td> 
+        <td><%= link_to workday.cast.full_name, edit_workday_path(workday)  %></td> 
         <td><%= workday.date.strftime("%Y-%m-%d") %></td>
         <td><%= workday.start_time.strftime("%H:%M") %></td> 
         <td><%= workday.end_time.strftime("%H:%M") %></td> 
