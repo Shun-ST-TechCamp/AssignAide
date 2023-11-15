@@ -1,22 +1,23 @@
 <h1>スケジュール一覧</h1>
 <h2>スケジュール管理</h2>
-<%= link_to "スケジュールを追加", "#" %>
+<%= link_to "スケジュールを追加", new_workday_path %>
 <table>
   <thead>
     <tr>
-      <th>キャスト名</th>
-      <th>日付</th>
-      <th>開始時間</th>
-      <!-- 他の必要なカラム -->
+      <th><%= sortable "casts.family_name", "キャスト名" %></th>
+      <th><%= sortable "date", "日付" %></th>
+      <th><%= sortable "start_time", "開始時間" %></th>
+      <th><%= sortable "end_time", "終了時間" %></th>
+      
     </tr>
   </thead>
   <tbody>
     <% @workdays.each do |workday| %>
       <tr>
-        <td><%= workday.cast.name %></td> <!-- キャスト名を表示 -->
-        <td><%= workday.date %></td> <!-- 日付を表示 -->
-        <td><%= workday.start_time %></td> <!-- 開始時間を表示 -->
-        <!-- 他のカラムの値を表示 -->
+        <td><%= workday.cast.full_name %></td> 
+        <td><%= workday.date.strftime("%Y-%m-%d") %></td>
+        <td><%= workday.start_time.strftime("%H:%M") %></td> 
+        <td><%= workday.end_time.strftime("%H:%M") %></td> 
       </tr>
     <% end %>
   </tbody>
