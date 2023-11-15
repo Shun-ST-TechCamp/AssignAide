@@ -20,6 +20,7 @@
 
 ### Association
 - has_many   :schedules
+- has_many   :workdays
 
 ## positionsテーブル
 
@@ -40,13 +41,27 @@
 | ----------------- | ---------- | ------------------------------ |
 | cast_id           | references | null: false, foreign_key: true |
 | position_id       | references | null: false, foreign_key: true |
-| date              | date       | null: false                    |
+| workday_id        | references | null: false, foreign_key: true |
 | start_time        | time       | null: false                    |
 | end_time          | time       | null: false                    |
 
 ### Association
 - belongs_to :cast
 - belongs_to :position
+- belongs_to :workday
+
+## workdaysテーブル
+
+| Column            | Type       | Options                        |
+| ----------------- | ---------- | ------------------------------ |
+| cast_id           | references | null: false, foreign_key: true |
+| date              | date       | null: false                    |
+| start_time        | time       | null: false                    |
+| end_time          | time       | null: false                    |
+
+### Association
+- has_many :schedules
+- belongs_to :cast
 
 ## 注釈
 
