@@ -1,0 +1,24 @@
+<h1>スケジュール一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>キャスト</th>
+      <th>ポジション</th>
+      <th>日付</th>
+      <th>開始時間</th>
+      <th>終了時間</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @schedules.each do |schedule| %>
+      <tr>
+        <td><%= schedule.cast.full_name %></td>
+        <td><%= schedule.position.position_name %></td>
+        <td><%= schedule.date %></td>
+        <td><%= schedule.start_time.strftime('%H:%M') %></td>
+        <td><%= schedule.end_time.strftime('%H:%M') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
