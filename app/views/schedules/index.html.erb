@@ -1,13 +1,17 @@
 <h1>スケジュール一覧</h1>
+<h2>スケジュール追加</h2>
+
+<%= link_to '新規スケジュールを追加', new_schedule_path %>
 
 <table>
   <thead>
     <tr>
-      <th>キャスト</th>
-      <th>ポジション</th>
-      <th>日付</th>
-      <th>開始時間</th>
-      <th>終了時間</th>
+      <th><%= sortable "casts.family_name", "キャスト名" %></th>
+      <th><%= sortable "positions.positon_name","ポジション" %></th>
+      <th><%= sortable "workdays.date", "作業日" %></th>
+      <th><%= sortable "start_time", "開始時間" %></th>
+      <th><%= sortable "end_time", "終了時間" %></th>
+      
     </tr>
   </thead>
   <tbody>
@@ -15,9 +19,13 @@
       <tr>
         <td><%= schedule.cast.full_name %></td>
         <td><%= schedule.position.position_name %></td>
-        <td><%= schedule.date %></td>
-        <td><%= schedule.start_time.strftime('%H:%M') %></td>
-        <td><%= schedule.end_time.strftime('%H:%M') %></td>
+        <td><%= schedule.workday.date.strftime("%Y-%m-%d") %></td>
+        <td><%= schedule.start_time.strftime("%H:%M") %></td>
+        <td><%= schedule.end_time.strftime("%H:%M") %></td>
+        <td>
+          <%= link_to '編集', edit_schedule_path(schedule) %>
+          <%= link_to '削除', schedule,data: { turbo_method: :delete, confirm: '本当に削除しますか？' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
