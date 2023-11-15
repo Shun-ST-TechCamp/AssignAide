@@ -33,6 +33,12 @@ class WorkdaysController < ApplicationController
     end
   end
 
+  def destroy
+    @workday = Workday.find(params[:id])
+    @workday.destroy
+    redirect_to workdays_path, notice: 'スケジュールを削除しました'
+  end
+
 
   private
 

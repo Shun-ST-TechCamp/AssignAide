@@ -18,6 +18,7 @@
         <td><%= workday.date.strftime("%Y-%m-%d") %></td>
         <td><%= workday.start_time.strftime("%H:%M") %></td> 
         <td><%= workday.end_time.strftime("%H:%M") %></td> 
+        <td><%= link_to '削除', workday, data: { turbo_method: :delete, confirm: '本当に削除しますか？' } %></td>
       </tr>
     <% end %>
   </tbody>
