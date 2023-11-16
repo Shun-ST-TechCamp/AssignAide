@@ -28,15 +28,8 @@
     <%= form.collection_select :workday_id, Workday.all, :id, :date, include_blank: true %>
   </div>
 
-  <div class="field">
-    <%= form.label :start_time %>
-    <%= form.time_select :start_time %>
-  </div>
-
-  <div class="field">
-    <%= form.label :end_time %>
-    <%= form.time_select :end_time %>
-  </div>
+  <%= form.label :time_slot, "時間帯" %>
+  <%= form.select :time_slot, Schedule::TIME_SLOTS.keys.map { |slot| [Schedule::TIME_SLOTS[slot].first, slot] }, { include_blank: true } %>
 
   <div class="actions">
     <%= form.submit %>

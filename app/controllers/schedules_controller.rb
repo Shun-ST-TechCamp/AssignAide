@@ -43,7 +43,7 @@ class SchedulesController < ApplicationController
 
   private
   def schedule_params
-    params.require(:schedule).permit(:cast_id, :position_id, :workday_id, :start_time, :end_time)
+    params.require(:schedule).permit(:cast_id, :position_id, :workday_id, :time_slot)
   end
 
   def sort_column

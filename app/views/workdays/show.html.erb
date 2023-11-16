@@ -1,0 +1,22 @@
+<h1><%= @workday.date %>のスケジュール</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ポジション</th>
+      <th>開始時間</th>
+      <th>終了時間</th>
+      <th>担当キャスト</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @schedules.each do |schedule| %>
+      <tr>
+        <td><%= schedule.position.position_name %></td>
+        <td><%= schedule.start_time.strftime("%H:%M") %></td>
+        <td><%= schedule.end_time.strftime("%H:%M") %></td>
+        <td><%= schedule.cast.full_name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

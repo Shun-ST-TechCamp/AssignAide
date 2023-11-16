@@ -20,8 +20,7 @@
         <td><%= schedule.cast.full_name %></td>
         <td><%= schedule.position.position_name %></td>
         <td><%= schedule.workday.date.strftime("%Y-%m-%d") %></td>
-        <td><%= schedule.start_time.strftime("%H:%M") %></td>
-        <td><%= schedule.end_time.strftime("%H:%M") %></td>
+        <td><%= Schedule::TIME_SLOTS[schedule.time_slot] ? Schedule::TIME_SLOTS[schedule.time_slot].first : "時間未設定" %></td>
         <td>
           <%= link_to '編集', edit_schedule_path(schedule) %>
           <%= link_to '削除', schedule,data: { turbo_method: :delete, confirm: '本当に削除しますか？' } %>

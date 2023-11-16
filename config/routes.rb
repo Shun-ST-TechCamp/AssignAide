@@ -13,4 +13,6 @@ Rails.application.routes.draw do
 
   resources :schedules, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :workdays,  only: [:index, :new, :create, :edit, :update, :destroy, :show]
+
+  get 'workdays/for_cast/:cast_id', to: 'workdays#for_cast'
 end

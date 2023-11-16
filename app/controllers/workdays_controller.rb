@@ -46,6 +46,11 @@ class WorkdaysController < ApplicationController
     redirect_to workdays_path, notice: 'スケジュールを削除しました'
   end
 
+  def for_cast
+    cast = Cast.find(params[:cast_id])
+    workdays = cast.workdays
+    render json: workdays
+  end
 
   private
 

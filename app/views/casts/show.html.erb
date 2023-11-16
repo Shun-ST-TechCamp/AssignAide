@@ -1,0 +1,7 @@
+<h1><%= @cast.full_name %>の勤務日</h1>
+
+<ul>
+  <% @workdays.each do |workday| %>
+    <li><%= link_to workday.date, workday_path(workday) %></li>
+  <% end %>
+</ul>
