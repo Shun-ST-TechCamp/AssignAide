@@ -22,7 +22,8 @@ class SchedulesController < ApplicationController
 
   def edit
     @schedule = Schedule.find(params[:id])
-    @casts = Cast.all.map {|cast| [cast.full_name, cast.id]} 
+    @cast = @schedule.cast
+    @casts = Cast.all.map { |cast| [cast.full_name, cast.id] }
   end
 
   def update
@@ -40,6 +41,11 @@ class SchedulesController < ApplicationController
     redirect_to schedules_path, notice: 'スケジュールを削除しました'
   end
 
+  def get_workdays_for_cast
+    cast_id = params[:cast_id]
+     workdays = Workday.where(cast_id: cast_id)
+     render json: workdays
+  end
 
   private
   def schedule_params
@@ -55,5 +61,6 @@ class SchedulesController < ApplicationController
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
+
 
 end
