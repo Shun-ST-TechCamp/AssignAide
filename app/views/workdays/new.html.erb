@@ -1,17 +1,8 @@
 <h1>新しいスケジュールの作成</h1>
 
 <%= form_with(model: @workday, local: true) do |form| %>
-  <% if @workday.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@workday.errors.count, "error") %>が発生しました:</h2>
-      <ul>
-      <% @workday.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+   <%= render 'layouts/error_messages', model: @schedule %>
+   
 <div class="field">
   <%= form.label :cast_id %>
   <%= form.select :cast_id, @casts, { include_blank: true } %>
