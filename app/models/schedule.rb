@@ -11,7 +11,7 @@ class Schedule < ApplicationRecord
   validate :validate_unique_schedule_for_cast
   validate :validate_unique_position_schedule
 
-  TIME_SLOTS = {kan_0802
+  TIME_SLOTS = {
     "early_morning" => ["7:00～9:00", "7:00", "9:00"],
     "morning" => ["9:00～11:00", "9:00", "11:00"],
     "late_morning" => ["11:00～13:00", "11:00", "13:00"],

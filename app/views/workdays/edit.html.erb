@@ -1,7 +1,7 @@
 <h1>勤務日・勤務時間編集</h1>
 
 <%= form_with(model: @workday, local: true) do |form| %>
-   <%= render 'layouts/error_messages', model: @schedule %>
+   <%= render 'layouts/error_messages', model: @workday %>
 
   <div class="field">
     <%= form.label :cast_id %>
@@ -14,13 +14,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :start_time %>
-    <%= form.time_field :start_time %>
-  </div>
-
-  <div class="field">
-    <%= form.label :end_time %>
-    <%= form.time_field :end_time %>
+    <%= form.label :time_slot, "時間帯" %>
+    <%= form.select :time_slot, Workday::TIME_SLOTS.keys.map { |slot| [Workday::TIME_SLOTS[slot].first, slot] }, { include_blank: true } %>
   </div>
 
   <div class="actions">
