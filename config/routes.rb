@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :casts, controllers: { registrations: 'custom_registrations' }
   root to: 'positions#index'
-  resources :casts, only: [:index, :new, :create, :edit, :update, :show] do
+  resources :casts do
     resources :workdays, only: [:show]
   end
 
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   resources :schedules, only: [:index, :new, :create, :edit, :update, :destroy]
-  resources :workdays,  only: [:index, :new, :create, :edit, :update, :destroy, :show]
+  resources :workdays
 
   get 'get_workdays_for_cast', to: 'workdays#for_cast'
 end

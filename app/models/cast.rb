@@ -41,7 +41,7 @@ class Cast < ApplicationRecord
          end
 
          has_one_attached :image
-         has_many :schedules
-         has_many :workdays
+         has_many :schedules,dependent: :destroy
+         has_many :workdays,dependent: :destroy
 
 end
