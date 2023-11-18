@@ -10,6 +10,7 @@ class Schedule < ApplicationRecord
   validate :validate_time_slot
   validate :validate_unique_schedule_for_cast
   validate :validate_unique_position_schedule
+  validate :cast_must_be_scheduled_on_workday
 
   TIME_SLOTS = {
     "early_morning" => ["7:00～9:00", "7:00", "9:00"],
@@ -63,6 +64,14 @@ class Schedule < ApplicationRecord
                                       .where('(start_time < ? AND end_time > ?) OR (start_time < ? AND end_time > ?)',
                                              end_time, start_time, start_time, end_time)
       errors.add(:base, '異なるキャストは同じポジションで同じ時間帯にスケジュールされています') if overlapping_schedule.exists?
+    end
+  end
+
+  def cast_must_be_scheduled_on_workday
+    return if cast_id.blank? || workday_id.blank?
+
+    unless Workday.exists?(id: workday_id, cast_id: cast_id)
+      errors.add(:base, 'スケジュールされたキャストは指定された日に勤務していません。')
     end
   end
 end
