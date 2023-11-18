@@ -17,13 +17,10 @@ class WorkdaysController < ApplicationController
 
   def create
     @workday = Workday.new(workday_params)
-    @workday.time_slot = params[:workday][:time_slot]
-  
     if @workday.save
       redirect_to workdays_path, notice: 'スケジュールを入力しました。'
     else
-      @casts = Cast.all.map { |cast| [cast.full_name, cast.id] } 
-      render :new, status: :unprocessable_entity
+      render :new
     end
   end
 
@@ -36,12 +33,10 @@ class WorkdaysController < ApplicationController
 
   def update
     @workday = Workday.find(params[:id])
-    @workday.time_slot = params[:workday][:time_slot]
-  
     if @workday.update(workday_params)
       redirect_to workdays_path, notice: 'スケジュールを更新しました'
     else
-      render :edit, status: :unprocessable_entity
+      render :edit
     end
   end
 
@@ -60,7 +55,7 @@ class WorkdaysController < ApplicationController
   private
 
   def workday_params
-    params.require(:workday).permit(:cast_id, :date, :time_slot)
+    params.require(:workday).permit(:date, :start_time, :end_time)
   end
 
   def sort_column

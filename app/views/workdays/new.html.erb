@@ -2,7 +2,7 @@
 
 <%= form_with(model: @workday, local: true) do |form| %>
    <%= render 'layouts/error_messages', model: @workday %>
-
+   
 <div class="field">
   <%= form.label :cast_id %>
   <%= form.select :cast_id, @casts, { include_blank: true } %>
@@ -14,13 +14,16 @@
   </div>
 
   <div class="field">
-      <%= form.label :time_slot, "時間帯" %>
-      <%= form.select :time_slot, Workday::TIME_SLOTS.keys.map { |slot| [Workday::TIME_SLOTS[slot].first, slot] }, { include_blank: true } %>
+    <%= form.label :start_time %>
+    <%= form.time_field :start_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_time %>
+    <%= form.time_field :end_time %>
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
-
-<%= link_to '戻る', workdays_path %>
