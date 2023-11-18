@@ -8,6 +8,9 @@ class Schedule < ApplicationRecord
   validates :position_id,                 presence: true
   validates :workday_id,                  presence: true
   validate :validate_time_slot
+  validate :validate_unique_schedule_for_cast
+  validate :validate_unique_position_schedule
+
   TIME_SLOTS = {
     "early_morning" => ["7:00～9:00", "7:00", "9:00"],
     "morning" => ["9:00～11:00", "9:00", "11:00"],
@@ -45,4 +48,11 @@ class Schedule < ApplicationRecord
   def validate_time_slot
     errors.add(:base, '不正な時間帯です') if start_time.nil? || end_time.nil?
   end
+
+  def validate_unique_schedule_for_cast
+    existing_schedule = Schedule.where(cast_id: cast_id, workday_id: workday_id, start_time: start_time, end_time: end_time)
+    errors.add(:base, '同じキャストは同じ時間帯に複数のスケジュールを設定できません') if existing_schedule.exists?
+  end
+
+  
 end
