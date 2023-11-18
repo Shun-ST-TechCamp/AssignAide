@@ -11,7 +11,7 @@ class Schedule < ApplicationRecord
   validate :validate_unique_schedule_for_cast
   validate :validate_unique_position_schedule
 
-  TIME_SLOTS = {
+  TIME_SLOTS = {kan_0802
     "early_morning" => ["7:00～9:00", "7:00", "9:00"],
     "morning" => ["9:00～11:00", "9:00", "11:00"],
     "late_morning" => ["11:00～13:00", "11:00", "13:00"],
@@ -50,15 +50,19 @@ class Schedule < ApplicationRecord
   end
 
   def validate_unique_schedule_for_cast
-    existing_schedule = Schedule.where(cast_id: cast_id, workday_id: workday_id, start_time: start_time, end_time: end_time)
+    existing_schedule = Schedule.where.not(id: id)
+    .where(cast_id: cast_id, workday_id: workday_id, start_time: start_time, end_time: end_time)
     errors.add(:base, '同じキャストは同じ時間帯に複数のスケジュールを設定できません') if existing_schedule.exists?
   end
 
   def validate_unique_position_schedule
-    overlapping_schedule = Schedule.where.not(cast_id: cast_id)
-                                   .where(position_id: position_id, workday_id: workday_id)
-                                   .where('(start_time < ? AND end_time > ?) OR (start_time < ? AND end_time > ?)',
-                                          end_time, start_time, start_time, end_time)
-    errors.add(:base, '異なるキャストは同じポジションで同じ時間帯にスケジュールされています') if overlapping_schedule.exists?
+    def validate_unique_position_schedule
+      overlapping_schedule = Schedule.where.not(id: id)
+                                      .where.not(cast_id: cast_id)
+                                      .where(position_id: position_id, workday_id: workday_id)
+                                      .where('(start_time < ? AND end_time > ?) OR (start_time < ? AND end_time > ?)',
+                                             end_time, start_time, start_time, end_time)
+      errors.add(:base, '異なるキャストは同じポジションで同じ時間帯にスケジュールされています') if overlapping_schedule.exists?
+    end
   end
 end
