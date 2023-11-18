@@ -4,6 +4,10 @@ class Schedule < ApplicationRecord
   belongs_to :workday
 
 
+  validates :cast_id,                     presence: true
+  validates :position_id,                 presence: true
+  validates :workday_id,                  presence: true
+  validate :validate_time_slot
   TIME_SLOTS = {
     "early_morning" => ["7:00～9:00", "7:00", "9:00"],
     "morning" => ["9:00～11:00", "9:00", "11:00"],
@@ -20,6 +24,8 @@ class Schedule < ApplicationRecord
   end
 
   def time_slot=(slot)
+    return unless TIME_SLOTS.has_key?(slot)
+
     start_time_str, end_time_str = TIME_SLOTS[slot][1..2]
     base_date = Date.new(2000, 1, 1) 
     self.start_time = Time.zone.parse("#{base_date} #{start_time_str}")
@@ -34,4 +40,9 @@ class Schedule < ApplicationRecord
  
   end
 
+  private
+
+  def validate_time_slot
+    errors.add(:base, '不正な時間帯です') if start_time.nil? || end_time.nil?
+  end
 end

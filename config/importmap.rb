@@ -7,3 +7,4 @@ pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin "image_preview", to: "image_preview.js"
 pin "dynamic_workdays", to: "dynamic_workdays.js"
+pin "edit_schedule", to: "edit_schedule.js"

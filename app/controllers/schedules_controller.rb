@@ -14,9 +14,10 @@ class SchedulesController < ApplicationController
   def create
     @schedule = Schedule.new(schedule_params)
     if @schedule.save
-      redirect_to schedules_path, notice: 'スケジュールを入力しました。'
+      redirect_to schedules_path
     else
-      render :new
+      @casts = Cast.all.map { |cast| [cast.full_name, cast.id] }
+      render :new ,status: :unprocessable_entity
     end
   end
 
@@ -28,17 +29,19 @@ class SchedulesController < ApplicationController
 
   def update
     @schedule = Schedule.find(params[:id])
-    if @schedule.update(schedule_params)
-      redirect_to schedules_path, notice: 'スケジュールを更新しました'
+  
+    if @schedule.update(schedule_params.except(:cast_id))
+      redirect_to schedules_path
     else
-      render :edit
+      @casts = Cast.all.map { |cast| [cast.full_name, cast.id] } 
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @schedule = Schedule.find(params[:id])
     @schedule.destroy
-    redirect_to schedules_path, notice: 'スケジュールを削除しました'
+    redirect_to schedules_path
   end
 
   def get_workdays_for_cast
