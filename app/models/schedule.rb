@@ -54,5 +54,11 @@ class Schedule < ApplicationRecord
     errors.add(:base, '同じキャストは同じ時間帯に複数のスケジュールを設定できません') if existing_schedule.exists?
   end
 
-  
+  def validate_unique_position_schedule
+    overlapping_schedule = Schedule.where.not(cast_id: cast_id)
+                                   .where(position_id: position_id, workday_id: workday_id)
+                                   .where('(start_time < ? AND end_time > ?) OR (start_time < ? AND end_time > ?)',
+                                          end_time, start_time, start_time, end_time)
+    errors.add(:base, '異なるキャストは同じポジションで同じ時間帯にスケジュールされています') if overlapping_schedule.exists?
+  end
 end
