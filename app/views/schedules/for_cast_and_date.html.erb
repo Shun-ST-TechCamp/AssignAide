@@ -1,0 +1,22 @@
+<h1><%= @cast.full_name %> のスケジュール - <%= @date.strftime("%Y-%m-%d") %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ポジション名</th>
+      <th>スタートタイム</th>
+      <th>エンドタイム</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @schedules.each do |schedule| %>
+      <tr>
+        <td><%= t("activerecord.attributes.position.#{schedule.position.position_name}") %></td>
+        <td><%= schedule.start_time.strftime("%H:%M") %></td>
+        <td><%= schedule.end_time.strftime("%H:%M") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to '戻る', workdays_path %>

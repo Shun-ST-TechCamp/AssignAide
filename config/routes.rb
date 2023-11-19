@@ -18,4 +18,5 @@ Rails.application.routes.draw do
   get 'positions/tomorrow', to: 'positions#show_tomorrow', as: 'show_tomorrow_positions'
   get 'positions/day_after_tomorrow', to: 'positions#show_day_after_tomorrow', as: 'show_day_after_tomorrow_positions'
   get 'get_workdays_for_cast', to: 'workdays#for_cast'
+  get 'schedules/for_cast_and_date', to: 'schedules#for_cast_and_date', as: 'cast_date_schedules'
 end

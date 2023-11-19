@@ -50,6 +50,14 @@ class SchedulesController < ApplicationController
      render json: workdays
   end
 
+  def for_cast_and_date
+    @cast = Cast.find(params[:cast_id])
+    @date = params[:date].to_date
+    @schedules = Schedule.joins(:workday)
+                         .where(cast_id: @cast.id, workdays: { date: @date })
+                         .includes(:workday, :position)
+  end
+
   private
   def schedule_params
     params.require(:schedule).permit(:cast_id, :position_id, :workday_id, :time_slot)
