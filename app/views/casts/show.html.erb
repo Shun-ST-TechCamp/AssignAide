@@ -3,5 +3,6 @@
 <ul>
   <% @workdays.each do |workday| %>
     <li><%= link_to workday.date, workday_path(workday) %></li>
+    <%= workday.start_time.strftime("%H:%M") %> - <%= workday.end_time.strftime("%H:%M") %>
   <% end %>
 </ul>
