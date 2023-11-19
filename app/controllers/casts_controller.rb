@@ -1,9 +1,10 @@
 class CastsController < ApplicationController
   before_action :authenticate_cast!, only: [:index, :show, :edit, :update, :destroy]
   load_and_authorize_resource
+  helper_method :sort_column, :sort_direction
 
   def index
-    @casts = Cast.all
+      @casts = Cast.order(sort_column + " " + sort_direction)
   end
   
   def show
@@ -39,9 +40,20 @@ class CastsController < ApplicationController
     end
   end
 
+  def sort_column
+    %w[company_id family_name first_name].include?(params[:sort]) ? params[:sort] : "company_id"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+  
+
   protected
 
   def current_ability
     @current_ability ||= Ability.new(current_cast)
   end
+
+
 end

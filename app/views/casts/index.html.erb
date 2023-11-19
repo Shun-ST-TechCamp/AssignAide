@@ -3,7 +3,8 @@
   <div class="casts-index-casts">
     <table >
         <tr>
-          <th>名前</th>
+          <th><%= sortable "company_id", "ID" %></th>
+          <th><%= sortable "name", "名前" %></th>
           <th>皿仕分け</th>
           <th>皿洗い</th>
           <th>皿流し</th>
@@ -15,6 +16,7 @@
         </tr>
          <% @casts.each do |cast| %>
         <tr>
+          <td><%= cast.company_id %>
           <td>
             <% if can?(:edit, cast) && current_cast.admin? %>
               <%= link_to cast.family_name + cast.first_name, cast_path(cast) %>
