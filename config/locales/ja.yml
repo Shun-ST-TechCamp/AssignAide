@@ -1,5 +1,20 @@
 ja:
   activerecord:
+    models:
+      position: ポジション
+        
+    attributes:
+      position:
+        sara_shiwake: 皿仕分け
+        sara_arai: 皿洗い
+        sara_nagashi: 皿流し
+        sara_huki:  皿フキ
+        kigu_arai: 器具洗い
+        kigu_nagashi: 器具流し
+        kigu_huki: 器具拭き
+        silver_migaki: シルバー磨き
+        extra: 余剰スタッフ
+    
     errors:
       models:
         cast:
@@ -16,14 +31,3 @@ ja:
               blank: "会社IDを入力してください"
             image:
               blank: "画像を選択してください"
-  positions:
-    sara_shiwake: 皿仕分け
-    sara_arai: 皿洗い
-    sara_nagashi: 皿流し
-    sara_huki:  皿フキ
-    kigu_arai: 器具洗い
-    kigu_nagashi: 器具流し
-    kigu_huki: 器具拭き
-    silver_migaki: シルバー磨き
-    extra: 余剰スタッフ
-    

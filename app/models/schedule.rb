@@ -11,6 +11,7 @@ class Schedule < ApplicationRecord
   validate :validate_unique_schedule_for_cast
   validate :validate_unique_position_schedule
   validate :cast_must_be_scheduled_on_workday
+  validate :schedule_within_workday_hours
 
   TIME_SLOTS = {
     "early_morning" => ["7:00～9:00", "7:00", "9:00"],
@@ -24,7 +25,13 @@ class Schedule < ApplicationRecord
   }
 
   def time_slot
-    TIME_SLOTS.key([start_time&.strftime("%H:%M"), end_time&.strftime("%H:%M")])
+    return nil if start_time.blank? || end_time.blank?
+  
+    formatted_start_time = start_time.strftime("%H:%M")
+    formatted_end_time = end_time.strftime("%H:%M")
+    TIME_SLOTS.find do |_, times|
+      times[1] == formatted_start_time && times[2] == formatted_end_time
+    end&.first
   end
 
   def time_slot=(slot)
@@ -72,6 +79,18 @@ class Schedule < ApplicationRecord
 
     unless Workday.exists?(id: workday_id, cast_id: cast_id)
       errors.add(:base, 'スケジュールされたキャストは指定された日に勤務していません。')
+    end
+  end
+
+  def schedule_within_workday_hours
+    return if workday_id.blank? || start_time.blank? || end_time.blank?
+  
+    workday = Workday.find(workday_id)
+    Rails.logger.debug "Workday Hours: #{workday.start_time} - #{workday.end_time}"
+    Rails.logger.debug "Schedule Hours: #{start_time} - #{end_time}"
+  
+    unless workday.start_time <= start_time && workday.end_time >= end_time
+      errors.add(:base, 'スケジュールされた時間は勤務時間内にある必要があります。')
     end
   end
 end

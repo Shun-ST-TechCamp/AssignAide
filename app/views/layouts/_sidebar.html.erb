@@ -18,13 +18,13 @@
       <%= link_to 'スケジュール',workdays_path, class: 'schedule-title' %>
       <div class="schedule">
         <div class="schedule-name">
-          <a href="#">・本日</a>
+          <%= link_to'・今日',positions_path, class: 'today_positions' %>
         </div>
         <div class="schedule-name">
-          <a href="#">・◯月✕日（明日）</a>
+          <%= link_to'・明日',show_tomorrow_positions_path, class: 'tomorrow_positions' %>
         </div>
         <div class="schedule-name">
-          <a href="#">・◯月✕日（明後日）</a>
+          <%= link_to'・明後日',show_day_after_tomorrow_positions_path, class: 'tomorrow_positions' %>
         </div>
       </div>
     </div>

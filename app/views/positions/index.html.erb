@@ -1,19 +1,23 @@
-<h1>Positions</h1>
-<h2>~9:00<h2>
-<table>
-  <thead>
-    <tr>
-      <th>Position Name</th>
-      <th>worker</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @positions.each do |position| %>
-      <tr>
-        <td><%= t("positions.#{position.position_name}") %></td>
-        <td><%= "" %></td>
+<h1>ポジション一覧 - <%= @date %></h1>
 
+<% @schedules_by_time_slot.each do |time_slot, schedules| %>
+ <p>Time slot: <%= time_slot.inspect %></p>
+  <h2><%= Schedule::TIME_SLOTS[time_slot]&.first || '未定義のタイムスロット' %></h2>
+  <table>
+    <tr>
+      <th>ポジション名</th>
+      <th>スタートタイム</th>
+      <th>エンドタイム</th>
+      <th>キャスト名</th>
+    </tr>
+
+    <% schedules.each do |schedule| %>
+      <tr>
+        <td><%= t("activerecord.attributes.position.#{schedule.position.position_name}") %></td>
+        <td><%= schedule.start_time.strftime("%H:%M") %></td>
+        <td><%= schedule.end_time.strftime("%H:%M") %></td>
+        <td><%= schedule.cast.full_name %></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+  </table>
+<% end %>
