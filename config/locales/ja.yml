@@ -16,6 +16,8 @@ ja:
         extra: 余剰スタッフ
     
     errors:
+      messages:
+        record_invalid: "バリデーションに失敗しました: %{errors}"
       models:
         cast:
           attributes:
