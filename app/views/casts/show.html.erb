@@ -2,7 +2,7 @@
 
 <ul>
   <% @workdays.each do |workday| %>
-    <li><%= link_to workday.date, workday_path(workday) %></li>
+    <li><%= link_to workday.date, cast_date_schedules_path(cast_id: workday.cast_id, date: workday.date) %></li>
     <%= workday.start_time.strftime("%H:%M") %> - <%= workday.end_time.strftime("%H:%M") %>
   <% end %>
 </ul>

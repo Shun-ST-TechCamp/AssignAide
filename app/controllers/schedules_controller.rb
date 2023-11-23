@@ -1,6 +1,7 @@
 class SchedulesController < ApplicationController
   helper_method :sort_column, :sort_direction
-
+  before_action :cast_all_map, only: [:new, :create, :edit, :update]
+  before_action :set_schedule, only: [:edit, :update, :destroy]
 
   def index
     @schedules = Schedule.joins(:cast).order(sort_column + " " + sort_direction)
@@ -8,7 +9,6 @@ class SchedulesController < ApplicationController
 
   def new
     @schedule = Schedule.new
-    @casts = Cast.all.map { |cast| [cast.full_name, cast.id] }
   end
   
   def create
@@ -16,36 +16,29 @@ class SchedulesController < ApplicationController
     if @schedule.save
       redirect_to schedules_path
     else
-      @casts = Cast.all.map { |cast| [cast.full_name, cast.id] }
       render :new ,status: :unprocessable_entity
     end
   end
 
   def edit
-    @schedule = Schedule.find(params[:id])
     @cast = @schedule.cast
-    @casts = Cast.all.map { |cast| [cast.full_name, cast.id] }
   end
 
   def update
-    @schedule = Schedule.find(params[:id])
-  
     if @schedule.update(schedule_params.except(:cast_id))
       redirect_to schedules_path
     else
-      @casts = Cast.all.map { |cast| [cast.full_name, cast.id] } 
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @schedule = Schedule.find(params[:id])
     @schedule.destroy
     redirect_to schedules_path
   end
 
   def get_workdays_for_cast
-    cast_id = params[:cast_id]
+     cast_id = params[:cast_id]
      workdays = Workday.where(cast_id: cast_id)
      render json: workdays
   end
@@ -73,5 +66,13 @@ class SchedulesController < ApplicationController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
+  def set_schedule
+    @schedule = Schedule.find(params[:id])
+  end
+
+  def cast_all_map
+    @casts = Cast.all.map { |cast| [cast.full_name, cast.id] }
+  end
+  
 
 end

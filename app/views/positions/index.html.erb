@@ -6,6 +6,7 @@
     <tr>
       <th>ポジション名</th>
       <th>キャスト名</th>
+      <th>操作</th> <!-- 追加する列 -->
     </tr>
     <% @positions.each do |position| %>
       <tr>
@@ -13,6 +14,11 @@
         <td>
           <% assigned_cast = schedules.find { |schedule| schedule.position_id == position.id } %>
           <%= assigned_cast ? assigned_cast.cast.full_name : '' %>
+        </td>
+        <td>
+          <% unless assigned_cast %>
+            <%= link_to '配置', new_schedule_path(position_id: position.id, workday_id: @date, time_slot: time_slot), class: 'btn' %>
+          <% end %>
         </td>
       </tr>
     <% end %>
