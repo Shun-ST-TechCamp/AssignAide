@@ -1,0 +1,2 @@
+class BrakeTime < ApplicationRecord
+end
