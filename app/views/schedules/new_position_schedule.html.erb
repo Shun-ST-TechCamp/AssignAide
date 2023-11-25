@@ -1,0 +1,7 @@
+<%= form_for @schedule, url: schedules_path do |f| %>
+  <%= f.hidden_field :position_id, value: @position_id %>
+  <%= f.hidden_field :workday_id, value: @workday.id %>
+  <%= f.hidden_field :time_slot, value: @time_slot %>
+  <%= f.collection_select :cast_id, @available_casts, :id, :full_name, prompt: "キャストを選択してください" %>
+  <%= f.submit "スケジュールを作成" %>
+<% end %>

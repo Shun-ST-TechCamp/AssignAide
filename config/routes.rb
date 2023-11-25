@@ -11,7 +11,17 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :schedules, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :schedules, only: [:index, :new, :create, :edit, :update, :destroy] do
+    collection do
+      get 'new_position_schedule'
+    end
+    member do
+      delete :remove_position_schedule
+    end
+  end
+  
+
+
   resources :workdays
 
 

@@ -12,12 +12,14 @@
       <tr>
         <td><%= t("activerecord.attributes.position.#{position.position_name}") %></td>
         <td>
-          <% assigned_cast = schedules.find { |schedule| schedule.position_id == position.id } %>
-          <%= assigned_cast ? assigned_cast.cast.full_name : '' %>
+          <% assigned_schedule = schedules.find { |schedule| schedule.position_id == position.id } %>
+          <%= assigned_schedule ? assigned_schedule.cast.full_name : '' %>
         </td>
         <td>
-          <% unless assigned_cast %>
-            <%= link_to '配置', new_schedule_path(position_id: position.id, workday_id: @date, time_slot: time_slot), class: 'btn' %>
+          <% if assigned_schedule %>
+            <%= link_to '外す', remove_position_schedule_schedule_path(assigned_schedule), data: { turbo_method: :delete }, class: 'btn' %>
+          <% else %>
+            <%= link_to '配置', new_position_schedule_schedules_path(position_id: position.id, date: @date, time_slot: time_slot), class: 'btn' %>
           <% end %>
         </td>
       </tr>
