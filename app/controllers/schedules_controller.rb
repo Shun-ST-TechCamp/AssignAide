@@ -13,9 +13,11 @@ class SchedulesController < ApplicationController
   
   def create
     @schedule = Schedule.new(schedule_params)
+    Rails.logger.debug "Creating Schedule with params: #{schedule_params.inspect}"
     if @schedule.save
       redirect_to positions_path
     else
+      Rails.logger.debug "Failed to save schedule: #{@schedule.errors.full_messages}"
       render :new ,status: :unprocessable_entity
     end
   end
@@ -69,6 +71,11 @@ class SchedulesController < ApplicationController
                            .distinct
         
     @schedule = Schedule.new
+    unless @workday
+      flash[:alert] = "指定された日付のワークデイが見つかりません。"
+      redirect_to positions_path and return
+    end
+    @schedule.errors.full_messages
   end
 
   def remove_position_schedule

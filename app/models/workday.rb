@@ -16,4 +16,10 @@ class Workday < ApplicationRecord
       errors.add(:base, '同じキャストは同じ日に複数のワークデイを持つことはできません。')
     end
   end
+
+  def calculate_break_time
+    work_duration = (end_time - start_time) / 60 # 分単位で勤務時間を計算
+    brake_rule = BrakeTime.find_by('min_work_duration <= ? AND max_work_duration >= ?', work_duration, work_duration)
+    brake_rule ? brake_rule.break_duration : 0
+  end
 end

@@ -54,6 +54,15 @@ class WorkdaysController < ApplicationController
     render json: workdays
   end
 
+  ## new_position_schedule.html.erbで、選択したキャストとworkday_idを紐付ける
+  def for_cast
+    cast_id = params[:cast_id]
+    date = params[:date] || Date.today.to_s # 当日の日付を取得、またはパラメータから日付を取得
+  
+    workdays = Workday.where(cast_id: cast_id, date: date)
+    render json: workdays
+  end
+ # new_position_schedule.html.erbで、選択したキャストとworkday_idを紐付ける
   private
 
   def workday_params
