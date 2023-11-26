@@ -54,28 +54,37 @@ class SchedulesController < ApplicationController
   end
 
   def new_position_schedule
+    @schedule = Schedule.new
     @date = params[:date].to_date
     @time_slot = params[:time_slot]
-    @workday = Workday.find_by(date: @date)
     @position_id = params[:position_id]
-    start_time_str, end_time_str = Schedule::TIME_SLOTS[@time_slot][1..2]
+    @workday = Workday.find_by(date: @date)
   
-    base_date = @date.strftime("%Y-%m-%d")
-    time_slot_start = Time.zone.parse("#{base_date} #{start_time_str}")
-    time_slot_end = Time.zone.parse("#{base_date} #{end_time_str}")
+    if @workday
+      start_time_str, end_time_str = Schedule::TIME_SLOTS[@time_slot][1..2]
+      base_date = @date.strftime("%Y-%m-%d")
+      time_slot_start = Time.zone.parse("#{base_date} #{start_time_str}")
+      time_slot_end = Time.zone.parse("#{base_date} #{end_time_str}")
   
-   
-    @available_casts = Cast.joins(:workdays)
-                           .where(workdays: { date: @date })
-                           .where("workdays.start_time <= ? AND workdays.end_time >= ?", time_slot_start, time_slot_end)
-                           .distinct
-        
-    @schedule = Schedule.new
-    unless @workday
+      # その時間帯に既にスケジュールされているキャストの ID を取得（修正されたロジック）
+      workday_ids = Workday.where(date: @date).pluck(:id)
+      occupied_cast_ids = workday_ids.flat_map do |workday_id|
+        Schedule.where(workday_id: workday_id)
+                .where('(start_time <= ? AND end_time >= ?) OR (start_time >= ? AND start_time < ?) OR (end_time > ? AND end_time <= ?)', time_slot_start, time_slot_end, time_slot_start, time_slot_end, time_slot_start, time_slot_end)
+                .pluck(:cast_id)
+      end.uniq
+  
+      # その時間帯に勤務できるキャストをフィルタリング
+      available_casts_for_time_slot = Cast.joins(:workdays)
+                                          .where(workdays: { date: @date })
+                                          .where("workdays.start_time <= ? AND workdays.end_time >= ?", time_slot_start, time_slot_end)
+  
+      # その時間帯に勤務でき、まだ割り当てられていないキャストを選択
+      @available_casts = available_casts_for_time_slot.where.not(id: occupied_cast_ids)
+    else
       flash[:alert] = "指定された日付のワークデイが見つかりません。"
       redirect_to positions_path and return
     end
-    @schedule.errors.full_messages
   end
 
   def remove_position_schedule
