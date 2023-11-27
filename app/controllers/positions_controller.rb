@@ -1,15 +1,18 @@
 class PositionsController < ApplicationController
   def index
-    @date = params[:date] || Date.today 
+    @date = params[:date] || Date.today
     @positions = Position.all
-    schedules = Schedule.includes(:position, :cast, :workday) 
-                        .where(workdays: { date: @date }) 
-                        .order(:start_time) 
+
+    schedules = Schedule.includes(:position, :cast, :workday)
+                        .where(workdays: { date: @date })
+                        .order(:start_time)
 
     @schedules_by_time_slot = Schedule::TIME_SLOTS.keys.each_with_object({}) do |time_slot, hash|
-      start_time, end_time = Schedule::TIME_SLOTS[time_slot][1..2] 
+      time_slot_start, time_slot_end = Schedule::TIME_SLOTS[time_slot][1..2]
+                                      .map { |t| Time.zone.parse("#{@date} #{t}") }
       hash[time_slot] = schedules.select do |schedule|
-        schedule.start_time.strftime("%H:%M") == start_time && schedule.end_time.strftime("%H:%M") == end_time 
+        schedule.start_time.strftime("%H:%M") == time_slot_start.strftime("%H:%M") &&
+        schedule.end_time.strftime("%H:%M") == time_slot_end.strftime("%H:%M")
       end
     end
   end
@@ -48,13 +51,16 @@ class PositionsController < ApplicationController
                         .where(workdays: { date: @date })
                         .order(:start_time)
 
-    @schedules_by_time_slot = Schedule::TIME_SLOTS.keys.each_with_object({}) do |time_slot, hash|
+        @schedules_by_time_slot = Schedule::TIME_SLOTS.keys.each_with_object({}) do |time_slot, hash|
       start_time, end_time = Schedule::TIME_SLOTS[time_slot][1..2]
-      hash[time_slot] = schedules.select do |schedule|
-        schedule.start_time.strftime("%H:%M") == start_time && schedule.end_time.strftime("%H:%M") == end_time
+      selected_schedules = schedules.select do |schedule|
+        schedule_start = schedule.start_time.strftime("%H:%M")
+        schedule_end = schedule.end_time.strftime("%H:%M")
+        schedule_start == start_time && schedule_end == end_time
       end
+      hash[time_slot] = selected_schedules
     end
-  end
+ end
 
   def build_schedules_by_time_slot(schedules)
     Schedule::TIME_SLOTS.keys.each_with_object({}) do |time_slot, hash| 

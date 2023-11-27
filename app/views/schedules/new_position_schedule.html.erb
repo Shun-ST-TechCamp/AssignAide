@@ -6,7 +6,7 @@
   <%= f.collection_select :cast_id, @available_casts, :id, :full_name, prompt: "キャストを選択してください", id: "schedule_cast_id" %>
 
   <%= f.label :workday_id, "ワークデイ選択" %>
-  <%= f.collection_select :workday_id, Workday.all, :id, :date, prompt: "ワークデイを選択してください", id: "schedule_workday_id" %>
+  <%= f.collection_select :workday_id, @available_workdays, :id, :date, prompt: "ワークデイを選択してください", id: "schedule_workday_id" %>
 
   <%= f.submit "スケジュールを作成" %>
 <% end %>
