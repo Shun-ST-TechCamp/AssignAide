@@ -19,14 +19,11 @@ Rails.application.routes.draw do
       delete :remove_position_schedule
     end
   end
-  
-
 
   resources :workdays
 
-
   get 'positions/tomorrow', to: 'positions#show_tomorrow', as: 'show_tomorrow_positions'
   get 'positions/day_after_tomorrow', to: 'positions#show_day_after_tomorrow', as: 'show_day_after_tomorrow_positions'
-  get 'get_workdays_for_cast', to: 'workdays#for_cast'
+  get 'for_cast_on_date', to: 'workdays#for_cast_on_date'
   get 'schedules/for_cast_and_date', to: 'schedules#for_cast_and_date', as: 'cast_date_schedules'
 end

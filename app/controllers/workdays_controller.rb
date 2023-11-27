@@ -55,11 +55,13 @@ class WorkdaysController < ApplicationController
   end
 
   ## new_position_schedule.html.erbで、選択したキャストとworkday_idを紐付ける
-  def for_cast
+  def for_cast_on_date
     cast_id = params[:cast_id]
-    date = params[:date] || Date.today.to_s # 当日の日付を取得、またはパラメータから日付を取得
+    date = params[:date] || Date.today.to_s
   
     workdays = Workday.where(cast_id: cast_id, date: date)
+    Rails.logger.debug "Workdays for cast #{cast_id} on #{date}: #{workdays.inspect}"
+  
     render json: workdays
   end
  # new_position_schedule.html.erbで、選択したキャストとworkday_idを紐付ける
