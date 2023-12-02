@@ -1,12 +1,19 @@
 class Workday < ApplicationRecord
   has_many :schedules, dependent: :destroy
   belongs_to :cast
+  has_many :BrakeTime
 
   validates :cast_id, presence: true
   validates :date, presence: true
   validates :start_time, presence: true
   validates :end_time,  presence:true
   validate :validate_unique_workday_for_cast
+
+  def break_time
+    work_duration = (end_time - start_time) / 60 # 分単位で勤務時間を計算
+    brake_rule = BrakeTime.find_by('min_work_duration <= ? AND max_work_duration >= ?', work_duration, work_duration)
+    brake_rule ? brake_rule.break_duration : 0
+  end
 
   private
 
@@ -17,9 +24,5 @@ class Workday < ApplicationRecord
     end
   end
 
-  def calculate_break_time
-    work_duration = (end_time - start_time) / 60 # 分単位で勤務時間を計算
-    brake_rule = BrakeTime.find_by('min_work_duration <= ? AND max_work_duration >= ?', work_duration, work_duration)
-    brake_rule ? brake_rule.break_duration : 0
-  end
+
 end
