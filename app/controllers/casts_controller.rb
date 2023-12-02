@@ -10,6 +10,8 @@ class CastsController < ApplicationController
   def show
     @cast = Cast.find_by(company_id: params[:company_id])
     @workdays = @cast.workdays
+    @new_workday = Workday.new(cast_id: @cast.id)
+    @casts = Cast.all.map { |cast| [cast.full_name, cast.id] }
   end
   
 

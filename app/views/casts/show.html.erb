@@ -2,7 +2,32 @@
 
 <ul>
   <% @workdays.each do |workday| %>
-    <li><%= link_to workday.date, cast_date_schedules_path(cast_id: workday.cast_id, date: workday.date) %></li>
-    <%= workday.start_time.strftime("%H:%M") %> - <%= workday.end_time.strftime("%H:%M") %>
+    <li><%= link_to workday.date, cast_date_schedules_path(cast_id: workday.cast_id, date: workday.date) %>
+        <%= workday.start_time.strftime("%H:%M") %> - <%= workday.end_time.strftime("%H:%M") %>
+    </li>
   <% end %>
 </ul>
+
+<h2>新しい勤務日の追加</h2>
+<%= form_with model: @new_workday, url: create_for_cast_show_workdays_path, local: true do |form| %>
+  <%= form.hidden_field :cast_id, value: @cast.id %>
+  <%= form.hidden_field :redirect_to_cast, value: 'true' %>
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_field :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_time %>
+    <%= form.time_field :start_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_time %>
+    <%= form.time_field :end_time %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "追加" %>
+  </div>
+<% end %>

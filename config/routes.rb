@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   resources :workdays do
     collection do
+      post :create_for_cast_show
       delete :destroy_by_date
     end
   end
