@@ -20,7 +20,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :workdays
+  resources :workdays do
+    collection do
+      delete :destroy_by_date
+    end
+  end
 
   get 'positions/tomorrow', to: 'positions#show_tomorrow', as: 'show_tomorrow_positions'
   get 'positions/day_after_tomorrow', to: 'positions#show_day_after_tomorrow', as: 'show_day_after_tomorrow_positions'

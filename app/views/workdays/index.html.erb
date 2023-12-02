@@ -4,7 +4,11 @@
 <%= link_to "勤務日を追加", new_workday_path %>
 
 <% @workdays_by_date.each do |date, workdays| %>
-  <h2><%= date.strftime("%Y-%m-%d") %></h2>
+  <h2><%= date.strftime("%Y-%m-%d") %>
+    <% if date < Date.today %>
+      <%= link_to 'この日のデータを削除', destroy_by_date_workdays_path(date: date), data: { turbo_method: :delete, confirm: "#{date} のデータを本当に削除しますか？" } %>
+    <% end %>
+  </h2>
   <table>
     <thead>
       <tr>

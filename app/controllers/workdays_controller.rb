@@ -65,6 +65,12 @@ class WorkdaysController < ApplicationController
     redirect_to workdays_path, notice: 'スケジュールを削除しました'
   end
 
+  def destroy_by_date
+    date = params[:date].to_date
+    Workday.where(date: date).destroy_all
+    redirect_to workdays_path, notice: "#{date} の勤務データを削除しました。"
+  end
+
   def for_cast
     cast = Cast.find(params[:cast_id])
     workdays = cast.workdays
