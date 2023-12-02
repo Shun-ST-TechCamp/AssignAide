@@ -19,7 +19,7 @@
           <td><%= cast.company_id %>
           <td>
             <% if can?(:edit, cast) && current_cast.admin? %>
-              <%= link_to cast.family_name + cast.first_name, cast_path(cast) %>
+              <%= link_to cast.family_name + cast.first_name, cast_path(cast.company_id) %>
             <% else %>
               <%= cast.family_name + cast.first_name %>
             <% end %>
@@ -32,7 +32,7 @@
           <td><%= cast.kigu_nagashi_skill.name %></td>
           <td><%= cast.kigu_huki_skill.name %></td>
           <td><%= cast.silver_migaki_skill.name %></td>
-          <td><%= link_to '編集', edit_cast_path(cast) %></td>
+          <td><%= link_to '編集', edit_cast_path(cast.company_id) %></td>
         </tr>
       <% end %>
     </table>

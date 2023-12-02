@@ -8,13 +8,13 @@ class CastsController < ApplicationController
   end
   
   def show
-    @cast = Cast.find(params[:id])
+    @cast = Cast.find_by(company_id: params[:company_id])
     @workdays = @cast.workdays
   end
   
 
   def edit
-
+    @cast = Cast.find_by(company_id: params[:company_id])
   end
 
   def update

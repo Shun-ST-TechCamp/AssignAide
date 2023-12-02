@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   devise_for :casts, controllers: { registrations: 'custom_registrations' }
   root to: 'positions#index'
-  resources :casts do
-    resources :workdays, only: [:show]
+
+  resources :casts, param: :company_id do
+    resources :workdays, only: [:show,:edit]
   end
 
   resources :positions, only: [:index] do
