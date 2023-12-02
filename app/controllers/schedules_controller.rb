@@ -48,9 +48,13 @@ class SchedulesController < ApplicationController
   def for_cast_and_date
     @cast = Cast.find(params[:cast_id])
     @date = params[:date].to_date
-    @schedules = Schedule.joins(:workday)
+    sort_by = params[:sort] || "start_time"
+    direction = params[:direction] || "asc"
+  
+    @schedules = Schedule.joins(:workday, :position)
                          .where(cast_id: @cast.id, workdays: { date: @date })
                          .includes(:workday, :position)
+                         .order(sort_by => direction)
   end
 
   def new_position_schedule

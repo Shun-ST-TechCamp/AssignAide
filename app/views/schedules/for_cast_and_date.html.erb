@@ -3,9 +3,9 @@
 <table>
   <thead>
     <tr>
-      <th>ポジション名</th>
-      <th>スタートタイム</th>
-      <th>エンドタイム</th>
+      <th><%= link_to "ポジション名", cast_date_schedules_path(cast_id: @cast.id, date: @date, sort: "positions.position_name", direction: "asc") %></th>
+      <th><%= link_to "スタートタイム", cast_date_schedules_path(cast_id: @cast.id, date: @date, sort: "start_time", direction: "asc") %></th>
+      <th><%= link_to "エンドタイム", cast_date_schedules_path(cast_id: @cast.id, date: @date, sort: "end_time", direction: "asc") %></th>
     </tr>
   </thead>
   <tbody>
