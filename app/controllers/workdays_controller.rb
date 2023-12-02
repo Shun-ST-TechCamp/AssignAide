@@ -3,9 +3,26 @@ class WorkdaysController < ApplicationController
 
   def index
     @workdays = Workday.joins(:cast).order(sort_column + " " + sort_direction)
+    @workdays_by_date = @workdays.group_by(&:date).transform_values do |workdays|
+      sort_for_date = params[:sort_for_date]
+      sort_column_for_date = params[:sort_column_for_date]
+      sort_direction_for_date = params[:sort_direction_for_date]
+  
+      if sort_for_date.present? && sort_for_date == workdays.first.date.to_s
+        sorted_workdays = if sort_column_for_date == 'casts.family_name'
+                            workdays.sort_by { |workday| workday.cast.family_name }
+                          else
+                            workdays.sort_by { |workday| workday.send(sort_column_for_date) }
+                          end
+        sort_direction_for_date == 'desc' ? sorted_workdays.reverse : sorted_workdays
+      else
+        workdays
+      end
+    end
   end
-
-   def new
+ 
+  
+  def new
     @workday = Workday.new
     @casts = Cast.all.map { |cast| [cast.full_name, cast.id] }
   end
