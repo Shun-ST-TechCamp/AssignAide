@@ -36,8 +36,8 @@
 #   )
 # end
 
-BrakeTime.create!([
-  { min_work_duration: 0, max_work_duration: 360, break_duration: 0 },
-  { min_work_duration: 361, max_work_duration: 480, break_duration: 45 },
-  { min_work_duration: 481, max_work_duration: 1440, break_duration: 60 }
-])
+# BrakeTime.create!([
+#   { min_work_duration: 0, max_work_duration: 360, break_duration: 0 },
+#   { min_work_duration: 361, max_work_duration: 480, break_duration: 45 },
+#   { min_work_duration: 481, max_work_duration: 1440, break_duration: 60 }
+# ])

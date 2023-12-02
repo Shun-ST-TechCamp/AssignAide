@@ -63,6 +63,18 @@
 - has_many :schedules
 - belongs_to :cast
 
+## brake_timesテーブル
+
+| Column               | Type    | Options     |
+| -------------------- | ------- | ----------- |
+| min_work_duration    | integer |             |
+| max_work_duration    | integer |             |
+| break_duration       | integer |             |
+
+
+
 ## 注釈
 
 - `sara_shiwake_skill`, `sara_arai_skill`, `sara_nagashi_skill`, `sara_huki_skill`, `kigu_arai_skill`, `kigu_nagashi_skill`, `kigu_huki_skill`, `silver_migaki_skill` の各カラムは、ActiveHashを使用して管理されます。それらは `SkillLevel` ActiveHashモデルを使用し、それぞれのカラムは `belongs_to_active_hash` アソシエーションを持ちます。
+
+- brake_timesテーブルは、workdayモデルでstart_timeとend_timeを元に勤務時間を計算し、BrakeTimeモデルで休憩時間を決定するために使用されます。他のモデルとは関連付けられていませんが、WorkdayやScheduleモデルで使用されます。
