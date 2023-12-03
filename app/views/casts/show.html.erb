@@ -11,7 +11,6 @@
 <h2>新しい勤務日の追加</h2>
 <%= form_with model: @new_workday, url: create_for_cast_show_workdays_path, local: true do |form| %>
   <%= form.hidden_field :cast_id, value: @cast.id %>
-  <%= form.hidden_field :redirect_to_cast, value: 'true' %>
   <div class="field">
     <%= form.label :date %>
     <%= form.date_field :date %>
