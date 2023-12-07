@@ -13,20 +13,40 @@ class SchedulesController < ApplicationController
   
   def create
     @schedule = Schedule.new(schedule_params)
-    
+  
+    # 休憩時間との競合をチェック
+    if break_time_conflict?(@schedule)
+      flash[:alert] = '選択された時間はキャストの休憩時間と競合しています。'
+      render :new, status: :unprocessable_entity
+      return
+    end
+
+    # 休憩時間に3人以上のキャストがいないかチェック
+    if break_overlap_limit_exceeded?(@schedule)
+      flash[:alert] = 'この休憩時間には既に3人のキャストが割り当てられています。'
+      render :new, status: :unprocessable_entity
+      return
+    end
+  
     if @schedule.save
       redirect_to positions_path
     else
-      
-      render :new ,status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
   end
+
 
   def edit
     @cast = @schedule.cast
   end
 
   def update
+    if break_time_conflict?(@schedule)
+      flash[:alert] = '選択された時間はキャストの休憩時間と競合しています。'
+      render :edit, status: :unprocessable_entity
+      return
+    end
+  
     if @schedule.update(schedule_params.except(:cast_id))
       redirect_to schedules_path
     else
@@ -124,5 +144,18 @@ class SchedulesController < ApplicationController
     @casts = Cast.all.map { |cast| [cast.full_name, cast.id] }
   end
   
+  def break_time_conflict?(schedule)
+    # 休憩スケジュールを取得
+    break_schedules = Schedule.where(workday_id: schedule.workday_id, position_id: break_position_id)
+  
+    break_schedules.any? do |break_schedule|
+      # スケジュール時間が休憩時間と重なっているか確認
+      schedule.start_time < break_schedule.end_time && schedule.end_time > break_schedule.start_time
+    end
+  end
+
+  def break_position_id
+    @break_position_id ||= Position.find_by(position_name: 'brake').id
+  end
 
 end

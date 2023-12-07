@@ -37,6 +37,7 @@ class WorkdaysController < ApplicationController
     if @workday.save
       redirect_to workdays_path, notice: 'スケジュールを入力しました。'
     else
+      Rails.logger.debug "エラー: " + @workday.errors.full_messages.to_s # ここでエラーメッセージをログに出力
       @casts = Cast.all.map { |cast| [cast.full_name, cast.id] }
       render :new, status: :unprocessable_entity
     end

@@ -14,6 +14,7 @@ ja:
         kigu_huki: 器具拭き
         silver_migaki: シルバー磨き
         extra: 余剰スタッフ
+        brake: 休憩
     
     errors:
       messages:
