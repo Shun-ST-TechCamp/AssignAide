@@ -16,7 +16,33 @@ class Workday < ApplicationRecord
     brake_rule ? brake_rule.break_duration : 0
   end
 
+    ## テスト用の一時的なパブリックメソッド
+
+    # def test_assign_break_to_time_slot
+    #   assign_break_to_time_slot
+    # end
+
+    # def test_calculate_break_start_time
+    #   calculate_break_start_time
+    # end
+
+    # def test_create_or_update_break_schedule(start_time, time_slot)
+    #   create_or_update_break_schedule(start_time, time_slot)
+    # end
+
+    # def test_calculate_break_start_time
+    #   calculate_break_start_time
+    # end
+
+    ## テスト用の一時的なパブリックメソッド
+
   private
+  def validate_unique_workday_for_cast
+    existing_workday = Workday.where(cast_id: cast_id, date: date)
+    if existing_workday.exists? && (new_record? || existing_workday.where.not(id: id).exists?)
+      errors.add(:base, '同じキャストは同じ日に複数のワークデイを持つことはできません。')
+    end
+  end
 
   def handle_break_schedule
     if new_record?
@@ -25,7 +51,7 @@ class Workday < ApplicationRecord
       update_break_schedule
     end
   end
-
+    
   def validate_unique_workday_for_cast
     existing_workday = Workday.where(cast_id: cast_id, date: date)
     if existing_workday.exists? && (new_record? || existing_workday.where.not(id: id).exists?)
@@ -50,15 +76,42 @@ class Workday < ApplicationRecord
     [earliest_start_break_time, latest_end_break_time - break_duration.minutes].max
   end
 
+  ###使用されていない可能性あり
+  # def calculate_and_assign_break_schedule
+  #   break_start_time = calculate_break_start_time
+  #   break_end_time = break_start_time + break_time.minutes
+  #   create_or_update_break_schedule(break_start_time, break_end_time)
+  # end
+
+  # def create_or_update_break_schedule(start_time, end_time)
+  #   Rails.logger.debug "Creating or updating break schedule for Workday ID: #{id}"
+  #   break_position = Position.find_by(position_name: 'brake')
+
+  #   existing_break_schedule = schedules.find_by(position_id: break_position.id)
+
+  #   if existing_break_schedule
+  #     Rails.logger.debug "Updating existing break schedule for Workday ID: #{id}"
+  #     existing_break_schedule.update(start_time: start_time, end_time: end_time)
+  #   else
+  #     Rails.logger.debug "Creating new break schedule for Workday ID: #{id}"
+  #     schedules.create!(
+  #       cast_id: cast_id,
+  #       position_id: break_position.id,
+  #       start_time: start_time,
+  #       end_time: end_time
+  #     )
+  #   end
+  # end
+  ###使用されていない可能性あり
+
   def create_break_schedule
     break_duration = break_time
     if break_duration > 0
       break_position = Position.find_by(position_name: 'brake')
       start_break_time = calculate_break_start_time
-      Schedule.create!(
+      schedules.create!(
         cast_id: cast_id,
         position_id: break_position.id,
-        workday_id: id,
         start_time: start_break_time,
         end_time: start_break_time + break_duration.minutes
       )
@@ -68,12 +121,12 @@ class Workday < ApplicationRecord
   def update_break_schedule
     break_position = Position.find_by(position_name: 'brake')
     existing_break_schedule = schedules.find_by(position_id: break_position.id)
-
+  
     if break_time.zero? && existing_break_schedule
       existing_break_schedule.destroy
       return
     end
-
+  
     if existing_break_schedule
       start_break_time = calculate_break_start_time
       existing_break_schedule.update(
@@ -84,4 +137,27 @@ class Workday < ApplicationRecord
       create_break_schedule
     end
   end
+
+  # def assign_break_to_time_slot
+  #   Rails.logger.debug "Assigning break to time slot for Workday ID: #{id}"
+  
+  #   calculated_start_time = calculate_break_start_time
+  #   calculated_end_time = calculated_start_time + break_time.minutes
+  
+  #   # 休憩時間を含むタイムスロットを探す
+  #   matching_time_slot = Schedule::TIME_SLOTS.find do |_, times|
+  #     slot_start = Time.zone.parse("#{date} #{times[1]}")
+  #     slot_end = Time.zone.parse("#{date} #{times[2]}")
+  #     calculated_end_time >= slot_start && calculated_end_time <= slot_end
+  #   end
+  
+  #   if matching_time_slot
+  #     Rails.logger.debug "Found matching time slot: #{matching_time_slot.first} for Workday ID: #{id}"
+      
+  #     create_or_update_break_schedule(calculated_start_time, calculated_end_time)
+  #   else
+  #     Rails.logger.debug "No matching time slot found for Workday ID: #{id}"
+  #   end
+  # end
+
 end

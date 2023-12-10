@@ -37,19 +37,16 @@ class WorkdaysController < ApplicationController
     if @workday.save
       redirect_to workdays_path, notice: 'スケジュールを入力しました。'
     else
-      Rails.logger.debug "エラー: " + @workday.errors.full_messages.to_s # ここでエラーメッセージをログに出力
       @casts = Cast.all.map { |cast| [cast.full_name, cast.id] }
       render :new, status: :unprocessable_entity
     end
   end
   
   def create_for_cast_show
-    Rails.logger.debug "Received params: #{params.inspect}"
     @workday = Workday.new(workday_params)
     if @workday.save
       redirect_to cast_path(company_id: @workday.cast.company_id), notice: '勤務日を追加しました。'
     else
-      Rails.logger.debug @workday.errors.full_messages
       @cast = Cast.find_by(company_id: params[:cast_id])
       render 'casts/show', status: :unprocessable_entity
     end

@@ -2,12 +2,14 @@
 <h1>ポジション一覧 - <%= @date %></h1>
 
 <% @schedules_by_time_slot.each do |time_slot, schedules| %>
+  <% time_slot_start, time_slot_end = Schedule::TIME_SLOTS[time_slot][1..2].map { |t| Time.zone.parse("#{@date} #{t}") } %>
+
   <h2><%= Schedule::TIME_SLOTS[time_slot]&.first || '未定義のタイムスロット' %></h2>
   <table>
     <tr>
       <th>ポジション名</th>
       <th>キャスト名</th>
-      <th>操作</th> <!-- 追加する列 -->
+      <th>操作</th>
     </tr>
     <% @positions.each do |position| %>
       <tr>
@@ -24,6 +26,25 @@
           <% end %>
         </td>
       </tr>
+    <% end %>
+  </table>
+
+  <%# ここに休憩スケジュールの表示を追加 %>
+  <h3>休憩時間</h3>
+  <table>
+    <tr>
+      <th>キャスト名</th>
+      <th>開始時間</th>
+      <th>終了時間</th>
+    </tr>
+    <% schedules.each do |schedule| %>
+      <% if schedule.position.position_name == 'brake' %>
+        <tr>
+          <td><%= schedule.cast.full_name %></td>
+          <td><%= schedule.start_time.strftime("%H:%M") %></td>
+          <td><%= schedule.end_time.strftime("%H:%M") %></td>
+        </tr>
+      <% end %>
     <% end %>
   </table>
 <% end %>

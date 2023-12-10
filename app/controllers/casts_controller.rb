@@ -18,9 +18,10 @@ class CastsController < ApplicationController
   def edit
     @cast = Cast.find_by(company_id: params[:company_id])
   end
-
+  
   def update
-
+    @cast = Cast.find_by(company_id: params[:company_id])
+  
     if @cast.update(cast_params)
       if params[:cast][:image].present?
         @cast.image.attach(params[:cast][:image])

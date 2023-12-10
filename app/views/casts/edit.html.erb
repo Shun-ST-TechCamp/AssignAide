@@ -1,7 +1,7 @@
 <%# casts/edit.html.erb %>
 
-<%= form_with(model: @cast, local: true) do |form| %>
-  <% if @cast.errors.any? %>
+<%= form_with(model: @cast, url: cast_path(@cast.company_id), local: true) do |form| %>
+  <% if @cast&.errors&.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@cast.errors.count, "error") %> が存在します:</h2>
       <ul>
@@ -12,9 +12,13 @@
     </div>
   <% end %>
 
-  <div class="field">
+ <div class="field">
+  <% if @cast.present? %>
     <%= @cast.family_name + @cast.first_name %>
-  </div>
+  <% else %>
+    <!-- エラー処理、メッセージ、またはリダイレクトなどをここに追加 -->
+  <% end %>
+</div>
 
   <% if @cast.image.attached? %>
    <%= image_tag @cast.image.variant(resize: "200x200"), class: "cast-image" %>

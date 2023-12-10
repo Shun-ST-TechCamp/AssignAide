@@ -1,22 +1,32 @@
 class PositionsController < ApplicationController
-  def index
-    @date = params[:date] || Date.today
-    @positions = Position.all
+def index
+  @date = params[:date] || Date.today
+  @positions = Position.all
+  workdays = Workday.where(date: @date)
+  schedules = Schedule.includes(:position, :cast, :workday).where(workdays: { date: @date }).order(:start_time)
+  @break_schedules = Schedule.where(workday: workdays, position: Position.find_by(position_name: 'brake'))
 
-    schedules = Schedule.includes(:position, :cast, :workday)
-                        .where(workdays: { date: @date })
-                        .order(:start_time)
+  @schedules_by_time_slot = Schedule::TIME_SLOTS.keys.each_with_object({}) do |time_slot, hash|
+    time_slot_start, time_slot_end = Schedule::TIME_SLOTS[time_slot][1..2].map { |t| Time.zone.parse("#{@date} #{t}") }
 
-    @schedules_by_time_slot = Schedule::TIME_SLOTS.keys.each_with_object({}) do |time_slot, hash|
-      time_slot_start, time_slot_end = Schedule::TIME_SLOTS[time_slot][1..2]
-                                      .map { |t| Time.zone.parse("#{@date} #{t}") }
-      hash[time_slot] = schedules.select do |schedule|
-        schedule.start_time.strftime("%H:%M") == time_slot_start.strftime("%H:%M") &&
-        schedule.end_time.strftime("%H:%M") == time_slot_end.strftime("%H:%M")
-      end
+    selected_schedules = schedules.select do |schedule|
+      schedule_start = schedule.start_time.strftime("%H:%M")
+      schedule_end = schedule.end_time.strftime("%H:%M")
+      schedule_start == time_slot_start.strftime("%H:%M") && schedule_end == time_slot_end.strftime("%H:%M")
     end
+
+    break_schedules_for_slot = @break_schedules.select do |break_schedule|
+      break_schedule_start = break_schedule.start_time.strftime("%H:%M")
+      break_schedule_end = break_schedule.end_time.strftime("%H:%M")
+      break_schedule_start >= time_slot_start.strftime("%H:%M") && break_schedule_end <= time_slot_end.strftime("%H:%M")
+    end.map do |break_schedule|
+      break_schedule
+    end
+    
+    hash[time_slot] = selected_schedules + break_schedules_for_slot
   end
-  
+end
+
   def current
     @current_time = Time.current 
     @schedule = Schedule.includes(:cast, :position).where(start_time: @current_time.beginning_of_hour..@current_time.end_of_hour) 

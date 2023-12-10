@@ -158,4 +158,16 @@ class SchedulesController < ApplicationController
     @break_position_id ||= Position.find_by(position_name: 'brake').id
   end
 
+  def break_overlap_limit_exceeded?(schedule)
+    # 休憩スケジュールを取得
+    break_schedules = Schedule.where(workday_id: schedule.workday_id, position_id: break_position_id)
+                              .where.not(id: schedule.id)
+
+    overlapping_schedules = break_schedules.select do |break_schedule|
+      schedule.start_time < break_schedule.end_time && schedule.end_time > break_schedule.start_time
+    end
+
+    overlapping_schedules.count >= 3
+  end
+
 end
