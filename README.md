@@ -126,10 +126,10 @@
 
 ## ローカルでの動作方法
 ### 以下のコマンドを順に実行
-git clone https://github.com/Shun-ST-TechCamp/AssignAide.git
-cd AssignAide
-bundle install
-yarn install
+git clone https://github.com/Shun-ST-TechCamp/AssignAide.git  
+cd AssignAide  
+bundle install  
+yarn install  
 
 ## 工夫したポイント
 なるべくフォームから入力をすることなく、簡単にポジションの配置ができるように工夫しました。
