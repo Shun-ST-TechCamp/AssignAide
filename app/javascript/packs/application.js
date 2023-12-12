@@ -1,2 +1,2 @@
-import "image_preview"
-import "edit_schedule"
+import './image_preview';
+import './edit_schedule';
