@@ -1,7 +1,8 @@
 # AssignAide
 
 ## アプリケーション概要
-  このアプリケーションは、アルバイトを職場のポジションに自動で配置するアプリケーションです。
+  このアプリケーションは、アルバイトを職場のポジションに自動で配置するアプリケーション。  
+  また、勤務情報をウェブ上で確認することができる。
 
 ## URL
 
@@ -19,10 +20,10 @@
   - フォームから選択する 
 
 ## アプリケーションを作成した背景
-  アルバイトを管理する管理者や、ウェブで勤務情報を確認したいアルバイトのために作成しました。  
-  ポジションの配置はポジションリーダーが毎日、出勤してすぐに完成させなければいけないため、とても忙しい業務となっていました。  
-  また慣れている人なら30分ほどで終わる作業とはいえ、それを自動化し業務の負担を軽減できればと思い作成しました。  
-  また、手作業で勤務情報をメモに写すとなると、写し間違えのリスクがあるためそのような問題を解決できるよう、ウェブで勤務情報を確認できればと思い作成しました。
+  アルバイトを管理する管理者や、ウェブ上で勤務情報を確認したいアルバイトのために作成した。  
+  ポジションの配置はポジションリーダーが毎日、出勤してすぐに完成させなければいけないため、とても忙しい業務となっていた。  
+  慣れている人なら30分ほどで終わる作業とはいえ、それを自動化し業務の負担を軽減できればと思い作成した。
+  また、手作業で勤務情報をメモに写すとなると、写し間違えのリスクがあるためそのような問題を解決できるよう、ウェブで勤務情報を確認できればと思い作成した。
 ## 要件定義
   [URL](https://docs.google.com/spreadsheets/d/1p4524lgo3DOmaOV5uoeIyPOwIxf1t_2wQPLWNMCYfyE/edit#gid=982722306) 
 
@@ -112,12 +113,12 @@
 
 ### 注釈
 
-- `sara_shiwake_skill`, `sara_arai_skill`, `sara_nagashi_skill`, `sara_huki_skill`, `kigu_arai_skill`, `kigu_nagashi_skill`, `kigu_huki_skill`, `silver_migaki_skill` の各カラムは、ActiveHashを使用して管理されます。それらは `SkillLevel` ActiveHashモデルを使用し、それぞれのカラムは `belongs_to_active_hash` アソシエーションを持ちます。
+- `sara_shiwake_skill`, `sara_arai_skill`, `sara_nagashi_skill`, `sara_huki_skill`, `kigu_arai_skill`, `kigu_nagashi_skill`, `kigu_huki_skill`, `silver_migaki_skill` の各カラムは、ActiveHashを使用して管理されます。それらは `SkillLevel` ActiveHashモデルを使用し、それぞれのカラムは `belongs_to_active_hash` アソシエーションを持つ。
 
-- brake_timesテーブルは、workdayモデルでstart_timeとend_timeを元に勤務時間を計算し、BrakeTimeモデルで休憩時間を決定するために使用されます。他のモデルとは関連付けられていませんが、WorkdayやScheduleモデルで使用されます。
+- brake_timesテーブルは、workdayモデルでstart_timeとend_timeを元に勤務時間を計算し、BrakeTimeモデルで休憩時間を決定するために使用される。他のモデルとは関連付けられていないが、WorkdayやScheduleモデルで使用される。
 
 ## 画面遷移図
-### 予定です
+### 予定
 [![Image from Gyazo](https://i.gyazo.com/6615c8b7b2fecc7a17e172d7bd7c1cb3.png)](https://gyazo.com/6615c8b7b2fecc7a17e172d7bd7c1cb3)
 
 ## 開発言語
@@ -134,4 +135,4 @@ bundle install
 yarn install  
 
 ## 工夫したポイント
-なるべくフォームから入力をすることなく、簡単にポジションの配置ができるように工夫しました。
+なるべくフォームから入力をすることなく、簡単にポジションの配置ができるように工夫した。
