@@ -1,4 +1,5 @@
 const { environment } = require('@rails/webpacker');
+const path = require('path'); 
 
 // Babel loader configuration
 const babelLoader = {
