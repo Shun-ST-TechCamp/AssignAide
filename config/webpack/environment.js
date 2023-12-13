@@ -30,6 +30,9 @@ const customConfig = {
       tls: false,
       child_process: false
     }
+  },
+  resolveLoader: {
+    modules: [path.join(__dirname, 'node_modules')]
   }
 };
 
@@ -43,15 +46,6 @@ environment.config.merge({
   }
 });
 
-environment.config.merge({
-  resolve: {
-    modules: ['node_modules', 'src'],
-    extensions: ['.js', '.jsx', '.json'],
-    alias: {
-      "Components": path.resolve(__dirname, 'src/components/')
-    }
-  }
-});
 
 // Deleting node configurations
 environment.config.delete('node.dgram');
