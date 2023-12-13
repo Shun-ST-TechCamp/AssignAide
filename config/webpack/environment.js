@@ -33,6 +33,26 @@ const customConfig = {
   }
 };
 
+environment.config.merge({
+  resolve: {
+    modules: ['node_modules', 'src'],
+    extensions: ['.js', '.jsx', '.json'],
+    alias: {
+      "Components": path.resolve(__dirname, 'src/components/')
+    }
+  }
+});
+
+environment.config.merge({
+  resolve: {
+    modules: ['node_modules', 'src'],
+    extensions: ['.js', '.jsx', '.json'],
+    alias: {
+      "Components": path.resolve(__dirname, 'src/components/')
+    }
+  }
+});
+
 // Deleting node configurations
 environment.config.delete('node.dgram');
 environment.config.delete('node.fs');
