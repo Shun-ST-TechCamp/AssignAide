@@ -19,7 +19,7 @@ environment.loaders.append('scss', scssLoader);
 // Custom configuration
 const customConfig = {
   output: {
-    filename: 'bundle.js',
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist')
   },
   resolve: {
