@@ -8,8 +8,19 @@ const babelLoader = {
 };
 environment.loaders.append('babel', babelLoader);
 
+// SCSS loader configuration
+const scssLoader = {
+  test: /\.scss$/,
+  use: ['style-loader', 'css-loader', 'sass-loader']
+};
+environment.loaders.append('scss', scssLoader);
+
 // Custom configuration
 const customConfig = {
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  },
   resolve: {
     fallback: {
       dgram: false,
