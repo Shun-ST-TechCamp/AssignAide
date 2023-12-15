@@ -1,0 +1,22 @@
+{
+  "application.js": "/packs/application.1b9121b58ecf720fcb64.js",
+  "edit_schedule.js": "/packs/edit_schedule.877fdba0fb54bcb96738.js",
+  "entrypoints": {
+    "application": {
+      "js": [
+        "/packs/application.1b9121b58ecf720fcb64.js"
+      ]
+    },
+    "edit_schedule": {
+      "js": [
+        "/packs/edit_schedule.877fdba0fb54bcb96738.js"
+      ]
+    },
+    "image_preview": {
+      "js": [
+        "/packs/image_preview.8103124767e754aaa0b7.js"
+      ]
+    }
+  },
+  "image_preview.js": "/packs/image_preview.8103124767e754aaa0b7.js"
+}
