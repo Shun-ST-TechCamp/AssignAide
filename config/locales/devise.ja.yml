@@ -1,0 +1,31 @@
+ja:
+  activerecord:
+    errors:
+      models:
+        cast:
+          attributes:
+            email:
+              blank: "メールアドレスを入力してください"
+            first_name:
+              blank: "名を入力してください"
+              invalid: "名は全角カタカナで入力してください"
+            family_name:
+              blank: "姓を入力してください"
+              invalid: "姓は全角カタカナで入力してください"
+            company_id:
+              blank: "会社IDを入力してください"
+              not_a_number: "会社IDは数値で入力してください"
+              too_long: "会社IDは8桁で入力してください"
+              too_short: "会社IDは8桁で入力してください"
+              invalid: "会社IDは無効です"
+            password_confirmation:
+              confirmation: "パスワード確認が一致しません"
+            current_password:
+              invalid: "現在のパスワードが正しくありません"
+  errors:
+    messages:
+      blank: "を入力してください"
+      not_a_number: "は数値で入力してください"
+      confirmation: "が一致しません"
+      invalid: "が無効です"
+      password_complexity: "は少なくとも1つの英字と1つの数字を含む必要があります"

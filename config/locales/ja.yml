@@ -22,15 +22,69 @@ ja:
       models:
         cast:
           attributes:
-            email:
-              blank: "メールアドレスを入力してください"
-            password:
-              blank: "パスワードを入力してください"
             first_name:
-              blank: "名字を入力してください"
+              blank: "名を入力してください"
+              invalid: "名は全角カタカナで入力してください"
             family_name:
-              blank: "名前を入力してください"
+              blank: "姓を入力してください"
+              invalid: "姓は全角カタカナで入力してください"
             company_id:
               blank: "会社IDを入力してください"
-            image:
-              blank: "画像を選択してください"
+              taken: "この会社IDはすでに使用されています"
+              not_a_number: "会社IDは数値で入力してください"
+              too_long: "会社IDは8桁で入力してください"
+              too_short: "会社IDは8桁で入力してください"
+            health:
+              blank: "健康状態を入力してください"
+              not_a_number: "健康状態は数値で入力してください"
+              greater_than_or_equal_to: "健康状態は0以上である必要があります"
+              less_than_or_equal_to: "健康状態は100以下である必要があります"
+            password_confirmation:
+              confirmation: "パスワード確認が一致しません"
+            current_password:
+              invalid: "現在のパスワードが正しくありません"
+      messages:
+        confirmation: "が一致しません"
+        invalid: "が不正です"
+        password_complexity: "は少なくとも1つの英字と1つの数字を含む必要があります"
+
+    errors:
+      models:
+        schedule:
+          attributes:
+            cast_id:
+              blank: "キャストIDを入力してください"
+            position_id:
+              blank: "ポジションIDを入力してください"
+            workday_id:
+              blank: "ワークデイIDを入力してください"
+          messages:
+            invalid_time_slot: "不正な時間帯です"
+            duplicate_schedule_for_cast: "同じキャストは同じ時間帯に複数のスケジュールを設定できません"
+            overlapping_position_schedule: "異なるキャストは同じポジションで同じ時間帯にスケジュールされています"
+            cast_not_scheduled_on_workday: "スケジュールされたキャストは指定された日に勤務していません"
+            schedule_outside_workday_hours: "スケジュールされた時間は勤務時間内にある必要があります"
+
+    errors:
+      models:
+        workday:
+          attributes:
+            cast_id:
+              blank: "キャストIDを入力してください"
+            date:
+              blank: "日付を入力してください"
+            start_time:
+              blank: "開始時間を入力してください"
+            end_time:
+              blank: "終了時間を入力してください"
+          messages:
+            duplicate_workday_for_cast: "同じキャストは同じ日に複数のワークデイを持つことはできません"
+
+  devise:
+    passwords:
+      no_token: "パスワード再設定トークンが提供されていません"
+      send_instructions: "数分以内にパスワードの再設定手順が記載されたメールが届きます"
+      updated: "パスワードが変更されました"
+    sessions:
+      signed_in: "ログインしました"
+      signed_out: "ログアウトしました"

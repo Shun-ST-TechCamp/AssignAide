@@ -5,11 +5,14 @@
   また、勤務情報をウェブ上で確認することができる。
 
 ## URL
-
+https://assignaide.onrender.com/
 ## テスト用アカウント
+    Campany:12345678
+    Password:123456a
   ### Basic認証
     ユーザー名:admin
     パスワード:2222
+  
 
 ## 利用方法
   - サイドバーの"スケジュール"をクリック  
@@ -25,13 +28,14 @@
   慣れている人なら30分ほどで終わる作業とはいえ、それを自動化し業務の負担を軽減できればと思い作成した。
   また、手作業で勤務情報をメモに写すとなると、写し間違えのリスクがあるためそのような問題を解決できるよう、ウェブで勤務情報を確認できればと思い作成した。
 ## 要件定義
-  [URL](https://docs.google.com/spreadsheets/d/1p4524lgo3DOmaOV5uoeIyPOwIxf1t_2wQPLWNMCYfyE/edit#gid=982722306) 
+  https://docs.google.com/spreadsheets/d/1p4524lgo3DOmaOV5uoeIyPOwIxf1t_2wQPLWNMCYfyE/edit#gid=982722306
 
 ## 使い方
 ### 配置の仕方
   [![Image from Gyazo](https://i.gyazo.com/e52475912292b78a6d4a7dfa5bfa4b1c.gif)](https://gyazo.com/e52475912292b78a6d4a7dfa5bfa4b1c)
 
 ## 実装予定の機能
+  - ログインしている人しか見れない機能
   - 自動配置するための機能  
   - 管理者のみ変更ができる機能  
 ## DB設計
@@ -40,21 +44,21 @@
 ## テーブル設計
 ### castsテーブル
 
-| Column              | Type   | Options                   |
-| ------------------- | ------ | ------------------------- |
-| first_name          | string | null: false               |
-| family_name         | string | null: false               |
-| company_id          | integer| null: false, unique: true |
-| encrypted_password  | string | null: false               |
-| health              | integer| null: false               |
-| sara_shiwake_skill  | integer| null: false               |
-| sara_arai_skill     | integer| null: false               |
-| sara_nagashi_skill  | integer| null: false               |
-| sara_huki_skill     | integer| null: false               |
-| kigu_arai_skill     | integer| null: false               |
-| kigu_nagashi_skill  | integer| null: false               |
-| kigu_huki_skill     | integer| null: false               |
-| silver_migaki_skill | integer| null: false               |
+| Column                 | Type   | Options                   |
+| -----------------------| ------ | ------------------------- |
+| first_name             | string | null: false               |
+| family_name            | string | null: false               |
+| company_id             | integer| null: false, unique: true |
+| encrypted_password     | string | null: false               |
+| health                 | integer| null: false               |
+| sara_shiwake_skill_id  | integer| null: false               |
+| sara_arai_skill_id     | integer| null: false               |
+| sara_nagashi_skill_id  | integer| null: false               |
+| sara_huki_skill_id     | integer| null: false               |
+| kigu_arai_skill_id     | integer| null: false               |
+| kigu_nagashi_skill_id  | integer| null: false               |
+| kigu_huki_skill_id     | integer| null: false               |
+| silver_migaki_skill_id | integer| null: false               |
 
 #### Association
 - has_many   :schedules
@@ -133,6 +137,13 @@ git clone https://github.com/Shun-ST-TechCamp/AssignAide.git
 cd AssignAide  
 bundle install  
 yarn install  
+db/seeds.rbファイルのコメントアウトを外し、18行目の[10].times doの数字を追加したいアルバイトキャストの数に変更
+rails db:seed
+#### 管理者権限の付与の仕方 (コンソール画面にて実行)
+cast = Cast.find(company_id:********) *を追加したキャストのcompany_idを指定  
+cast.admin = true
+cast.save
+
 
 ## 工夫したポイント
 なるべくフォームから入力をすることなく、簡単にポジションの配置ができるように工夫した。

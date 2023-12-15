@@ -16,6 +16,13 @@ class Cast < ApplicationRecord
          validates :kigu_arai_skill_id, presence:true
          validates :kigu_nagashi_skill_id, presence:true
          validates :silver_migaki_skill_id, presence:true
+         validate :password_complexity
+
+         def password_complexity
+           return if password.blank? || password =~ /^(?=.*?[A-Za-z])(?=.*?\d).{6,}$/
+       
+           errors.add :password, 'は少なくとも1つの英字と1つの数字を含む必要があります'
+         end
 
          def was_attached?
           image.attached?
