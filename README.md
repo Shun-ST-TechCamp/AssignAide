@@ -6,7 +6,7 @@
 
 ## URL
 https://assignaide.onrender.com/
-## テスト用アカウント
+## テスト用アカウント(管理者権限が付与されています)
     Campany:12345678
     Password:123456a
   ### Basic認証

@@ -1,0 +1,2 @@
+document.addEventListener("DOMContentLoaded",(function(){var t=document.getElementById("schedule_data"),e=document.getElementById("schedule_workday_id");if(e&&t){var n=t.getAttribute("data-cast-id");fetch("/get_workdays_for_cast?cast_id=".concat(n)).then((function(t){return t.json()})).then((function(t){e.innerHTML="",t.forEach((function(t){var n=new Option(t.date,t.id);e.appendChild(n)}))}))}}));
+//# sourceMappingURL=edit_schedule.9c3afc66207a1fd1e67d.js.map
