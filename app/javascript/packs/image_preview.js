@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("turbo:load", function() {
   document.querySelector('#image-input').addEventListener('change', function(e) {
     let file = e.target.files[0];
     let reader = new FileReader();
