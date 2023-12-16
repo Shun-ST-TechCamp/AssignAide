@@ -29,3 +29,6 @@ ja:
       confirmation: "が一致しません"
       invalid: "が無効です"
       password_complexity: "は少なくとも1つの英字と1つの数字を含む必要があります"
+      not_saved:
+        one: "このレコードは保存できませんでした：%{resource}"
+        other: "これらの%{count}つのレコードは保存できませんでした：%{resource}"
