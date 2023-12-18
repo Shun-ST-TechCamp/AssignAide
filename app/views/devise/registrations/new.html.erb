@@ -1,44 +1,44 @@
 <div class="contents row">
   <div class="container">
-    <h2>Sign up</h2>
+    <h2>キャスト登録</h2>
     <%= form_with model: @cast, url: cast_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="field">
-        <%= f.label :image %>
+        <%= f.label :image, "写真" %>
         <%= f.file_field :image %>
       </div>
 
       <div class="field">
-        <%= f.label :id %><br />
+        <%= f.label :id, "ID番号" %><br />
         <%= f.number_field :company_id %>
       </div>
       
       <div class="field">
-        <%= f.label :family_name %><br />
+        <%= f.label :family_name, "名字（カナ）" %><br />
         <%= f.text_field :family_name %>
       </div>
 
       <div class="field">
-        <%= f.label :first_name %><br />
+        <%= f.label :first_name, "名前（カナ）" %><br />
         <%= f.text_field :first_name %>
       </div>
 
       <div class="field">
-        <%= f.label :email %><br />
+        <%= f.label :email, "メールアドレス" %><br />
         <%= f.email_field :email %>
       </div>
 
       <div class="field">
-        <%= f.label :password %>
+        <%= f.label :password, "パスワード" %>
         <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <em>(最低 <%= @minimum_password_length %> 文字必要)</em>
         <% end %><br />
         <%= f.password_field :password, autocomplete: "off" %>
       </div>
 
       <div class="field">
-        <%= f.label :password_confirmation %><br />
+        <%= f.label :password_confirmation, "パスワード（確認）" %><br />
         <%= f.password_field :password_confirmation, autocomplete: "off" %>
       </div>
 
