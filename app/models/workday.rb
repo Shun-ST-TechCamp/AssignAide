@@ -16,6 +16,18 @@ class Workday < ApplicationRecord
     brake_rule ? brake_rule.break_duration : 0
   end
 
+  def break_schedule_limit_exceeded?(break_start_time, break_end_time)
+    overlapping_break_schedules = Schedule.joins(:workday)
+                                          .where(position_id: break_position_id, workdays: {date: date})
+                                          .where('schedules.start_time < ? AND schedules.end_time > ?', break_end_time, break_start_time)
+    overlapping_break_schedules.count >= 3
+  end
+
+  def break_position_id
+    @break_position_id ||= Position.find_by(position_name: 'brake').id
+  end
+
+
     ## テスト用の一時的なパブリックメソッド
 
     # def test_assign_break_to_time_slot
@@ -76,7 +88,7 @@ class Workday < ApplicationRecord
     [earliest_start_break_time, latest_end_break_time - break_duration.minutes].max
   end
 
-  ###使用されていない可能性あり
+  ###使用されていない
   # def calculate_and_assign_break_schedule
   #   break_start_time = calculate_break_start_time
   #   break_end_time = break_start_time + break_time.minutes
@@ -107,14 +119,18 @@ class Workday < ApplicationRecord
   def create_break_schedule
     break_duration = break_time
     if break_duration > 0
-      break_position = Position.find_by(position_name: 'brake')
       start_break_time = calculate_break_start_time
-      schedules.create!(
-        cast_id: cast_id,
-        position_id: break_position.id,
-        start_time: start_break_time,
-        end_time: start_break_time + break_duration.minutes
-      )
+      end_break_time = start_break_time + break_duration.minutes
+
+      unless break_schedule_limit_exceeded?(start_break_time, end_break_time)
+        break_position = Position.find_by(position_name: 'brake')
+        schedules.create!(
+          cast_id: cast_id,
+          position_id: break_position.id,
+          start_time: start_break_time,
+          end_time: end_break_time
+        )
+      end
     end
   end
 
