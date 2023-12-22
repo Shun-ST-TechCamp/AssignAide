@@ -1,4 +1,6 @@
 class Workday < ApplicationRecord
+  include TimeSlotConstants
+
   has_many :schedules, dependent: :destroy
   belongs_to :cast
 
@@ -28,27 +30,8 @@ class Workday < ApplicationRecord
   end
 
 
-    ## テスト用の一時的なパブリックメソッド
-
-    # def test_assign_break_to_time_slot
-    #   assign_break_to_time_slot
-    # end
-
-    # def test_calculate_break_start_time
-    #   calculate_break_start_time
-    # end
-
-    # def test_create_or_update_break_schedule(start_time, time_slot)
-    #   create_or_update_break_schedule(start_time, time_slot)
-    # end
-
-    # def test_calculate_break_start_time
-    #   calculate_break_start_time
-    # end
-
-    ## テスト用の一時的なパブリックメソッド
-
-  private
+ 
+  # private
   def validate_unique_workday_for_cast
     existing_workday = Workday.where(cast_id: cast_id, date: date)
     if existing_workday.exists? && (new_record? || existing_workday.where.not(id: id).exists?)
@@ -88,52 +71,22 @@ class Workday < ApplicationRecord
     [earliest_start_break_time, latest_end_break_time - break_duration.minutes].max
   end
 
-  ###使用されていない
-  # def calculate_and_assign_break_schedule
-  #   break_start_time = calculate_break_start_time
-  #   break_end_time = break_start_time + break_time.minutes
-  #   create_or_update_break_schedule(break_start_time, break_end_time)
-  # end
-
-  # def create_or_update_break_schedule(start_time, end_time)
-  #   Rails.logger.debug "Creating or updating break schedule for Workday ID: #{id}"
-  #   break_position = Position.find_by(position_name: 'brake')
-
-  #   existing_break_schedule = schedules.find_by(position_id: break_position.id)
-
-  #   if existing_break_schedule
-  #     Rails.logger.debug "Updating existing break schedule for Workday ID: #{id}"
-  #     existing_break_schedule.update(start_time: start_time, end_time: end_time)
-  #   else
-  #     Rails.logger.debug "Creating new break schedule for Workday ID: #{id}"
-  #     schedules.create!(
-  #       cast_id: cast_id,
-  #       position_id: break_position.id,
-  #       start_time: start_time,
-  #       end_time: end_time
-  #     )
-  #   end
-  # end
-  ###使用されていない可能性あり
-
   def create_break_schedule
-    break_duration = break_time
-    if break_duration > 0
-      start_break_time = calculate_break_start_time
-      end_break_time = start_break_time + break_duration.minutes
+      break_duration = break_time
+      return unless break_duration > 0
 
-      unless break_schedule_limit_exceeded?(start_break_time, end_break_time)
-        break_position = Position.find_by(position_name: 'brake')
-        schedules.create!(
-          cast_id: cast_id,
-          position_id: break_position.id,
-          start_time: start_break_time,
-          end_time: end_break_time
-        )
-      end
+      start_break_time, end_break_time = find_available_break_time
+
+      break_position = Position.find_by(position_name: 'brake')
+      schedules.create!(
+        cast_id: cast_id,
+        position_id: break_position.id,
+        start_time: start_break_time,
+        end_time: end_break_time
+      )
     end
-  end
 
+ 
   def update_break_schedule
     break_position = Position.find_by(position_name: 'brake')
     existing_break_schedule = schedules.find_by(position_id: break_position.id)
@@ -154,26 +107,56 @@ class Workday < ApplicationRecord
     end
   end
 
-  # def assign_break_to_time_slot
-  #   Rails.logger.debug "Assigning break to time slot for Workday ID: #{id}"
+  def find_available_break_time
+    break_duration = break_time
+    start_time = calculate_break_start_time
+    end_time = start_time + break_duration.minutes
   
-  #   calculated_start_time = calculate_break_start_time
-  #   calculated_end_time = calculated_start_time + break_time.minutes
+    while break_schedule_limit_exceeded?(start_time, end_time)
+      start_time += 15.minutes
+      end_time = start_time + break_duration.minutes
   
-  #   # 休憩時間を含むタイムスロットを探す
-  #   matching_time_slot = Schedule::TIME_SLOTS.find do |_, times|
-  #     slot_start = Time.zone.parse("#{date} #{times[1]}")
-  #     slot_end = Time.zone.parse("#{date} #{times[2]}")
-  #     calculated_end_time >= slot_start && calculated_end_time <= slot_end
-  #   end
+      # フォーマット変換
+      formatted_start_time = start_time.strftime("%H:%M")
+      formatted_end_time = end_time.strftime("%H:%M")
   
-  #   if matching_time_slot
-  #     Rails.logger.debug "Found matching time slot: #{matching_time_slot.first} for Workday ID: #{id}"
-      
-  #     create_or_update_break_schedule(calculated_start_time, calculated_end_time)
-  #   else
-  #     Rails.logger.debug "No matching time slot found for Workday ID: #{id}"
-  #   end
-  # end
+      # ずらした結果がタイムスロットを跨ぐ場合は調整する
+      formatted_start_time, formatted_end_time = adjust_break_schedule_to_time_slots(formatted_start_time, formatted_end_time, break_duration)
+  
+      # Time オブジェクトに戻す
+      start_time = Time.zone.parse("#{date} #{formatted_start_time}")
+      end_time = Time.zone.parse("#{date} #{formatted_end_time}")
+    end
+  
+    [start_time, end_time]
+  end
+  
+  def adjust_break_schedule_to_time_slots(formatted_start_time, formatted_end_time, duration)
+    TIME_SLOTS.each do |_, slot_times|
+      slot_start = Time.zone.parse("#{date} #{slot_times[1]}")
+      slot_end = Time.zone.parse("#{date} #{slot_times[2]}")
 
+      # タイムスロットの開始時間と終了時間を出力
+      puts "タイムスロット開始: #{slot_start.strftime('%H:%M')}, 終了: #{slot_end.strftime('%H:%M')}"
+
+      # start_time と end_time を Time オブジェクトに再変換
+      start_time = Time.zone.parse("#{date} #{formatted_start_time}")
+      end_time = Time.zone.parse("#{date} #{formatted_end_time}")
+
+      # 条件式の結果を出力
+      puts "条件式の結果: #{start_time.between?(slot_start, slot_end) && end_time > slot_end}"
+
+      # 休憩時間がタイムスロットを跨ぐ場合、タイムスロットに合わせて調整
+      if start_time.between?(slot_start, slot_end) && end_time > slot_end
+        adjusted_start_time = slot_end
+        adjusted_end_time = adjusted_start_time + duration.minutes
+
+        # 調整後の時間を出力
+        puts "調整後の開始: #{adjusted_start_time.strftime('%H:%M')}, 終了: #{adjusted_end_time.strftime('%H:%M')}"
+
+        return [adjusted_start_time.strftime('%H:%M'), adjusted_end_time.strftime('%H:%M')]
+      end
+    end
+    [formatted_start_time, formatted_end_time]
+  end
 end

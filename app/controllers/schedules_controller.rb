@@ -86,7 +86,7 @@ class SchedulesController < ApplicationController
     @available_workdays = Workday.where(date: @date)
   
     if @workday
-      start_time_str, end_time_str = Schedule::TIME_SLOTS[@time_slot][1..2]
+      start_time_str, end_time_str = TimeSlotConstants::TIME_SLOTS[@time_slot][1..2]
       base_date = @date.strftime("%Y-%m-%d")
       time_slot_start = Time.zone.parse("#{base_date} #{start_time_str}")
       time_slot_end = Time.zone.parse("#{base_date} #{end_time_str}")

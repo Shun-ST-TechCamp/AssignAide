@@ -1,4 +1,6 @@
 class Schedule < ApplicationRecord
+  include TimeSlotConstants
+
   belongs_to :cast
   belongs_to :position
   belongs_to :workday
@@ -13,31 +15,22 @@ class Schedule < ApplicationRecord
   validate :cast_must_be_scheduled_on_workday
   validate :schedule_within_workday_hours
 
-  TIME_SLOTS = {
-    "early_morning" => ["7:00～9:00", "7:00", "9:00"],
-    "morning" => ["9:00～11:00", "9:00", "11:00"],
-    "late_morning" => ["11:00～13:00", "11:00", "13:00"],
-    "early_afternoon" => ["13:00～15:00", "13:00", "15:00"],
-    "mid_afternoon" => ["15:00～17:00", "15:00", "17:00"],
-    "late_afternoon" => ["17:00～19:00", "17:00", "19:00"],
-    "evening" => ["19:00～21:00", "19:00", "21:00"],
-    "night" => ["21:00～22:00", "21:00", "22:00"]
-  }
+ 
 
   def time_slot
     return nil if start_time.blank? || end_time.blank?
-  
+
     formatted_start_time = start_time.strftime("%H:%M")
     formatted_end_time = end_time.strftime("%H:%M")
-    TIME_SLOTS.find do |_, times|
+    TimeSlotConstants::TIME_SLOTS.find do |_, times|
       times[1] == formatted_start_time && times[2] == formatted_end_time
     end&.first
   end
 
   def time_slot=(slot)
-    return unless TIME_SLOTS.has_key?(slot)
+    return unless TimeSlotConstants::TIME_SLOTS.has_key?(slot)
 
-    start_time_str, end_time_str = TIME_SLOTS[slot][1..2]
+    start_time_str, end_time_str = TimeSlotConstants::TIME_SLOTS[slot][1..2]
     base_date = Date.new(2000, 1, 1) 
     self.start_time = Time.zone.parse("#{base_date} #{start_time_str}")
     self.end_time = Time.zone.parse("#{base_date} #{end_time_str}")
@@ -47,8 +40,7 @@ class Schedule < ApplicationRecord
     slot = time_slot
     return "" unless slot
 
-    TIME_SLOTS[slot][0] 
- 
+    TimeSlotConstants::TIME_SLOTS[slot][0]
   end
 
   private
