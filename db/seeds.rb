@@ -8,7 +8,7 @@
 #   { position_name: 'kigu_huki', capacity: 2, fatigue_level: 10, position_type: 1, required_skill_level: 2 },
 #   { position_name: 'silver_migaki', capacity: 1, fatigue_level: 10, position_type: 1, required_skill_level: 2 },
 #   { position_name: 'extra', capacity: 99, fatigue_level: 0, position_type: 2, required_skill_level: 1 },
-#   { position_name: 'brake', capacity: 5, fatigue_level: 0, position_type: 2, required_skill_level: 1 }
+#   { position_name: 'brake', capacity: 3, fatigue_level: 0, position_type: 2, required_skill_level: 1 }
 # ])
 
 # require 'faker'
