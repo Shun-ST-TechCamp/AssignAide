@@ -103,8 +103,6 @@ class SchedulesController < ApplicationController
                                           .where(workdays: { date: @date })
                                           .where("workdays.start_time <= ? AND workdays.end_time >= ?", time_slot_start, time_slot_end)
   
-      # デバッグ：利用可能なキャストを確認
-  
       @available_casts = available_casts_for_time_slot.where.not(id: occupied_cast_ids)
     else
       flash[:alert] = "指定された日付のワークデイが見つかりません。"

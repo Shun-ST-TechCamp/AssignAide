@@ -136,24 +136,14 @@ class Workday < ApplicationRecord
       slot_start = Time.zone.parse("#{date} #{slot_times[1]}")
       slot_end = Time.zone.parse("#{date} #{slot_times[2]}")
 
-      # タイムスロットの開始時間と終了時間を出力
-      puts "タイムスロット開始: #{slot_start.strftime('%H:%M')}, 終了: #{slot_end.strftime('%H:%M')}"
-
       # start_time と end_time を Time オブジェクトに再変換
       start_time = Time.zone.parse("#{date} #{formatted_start_time}")
       end_time = Time.zone.parse("#{date} #{formatted_end_time}")
-
-      # 条件式の結果を出力
-      puts "条件式の結果: #{start_time.between?(slot_start, slot_end) && end_time > slot_end}"
 
       # 休憩時間がタイムスロットを跨ぐ場合、タイムスロットに合わせて調整
       if start_time.between?(slot_start, slot_end) && end_time > slot_end
         adjusted_start_time = slot_end
         adjusted_end_time = adjusted_start_time + duration.minutes
-
-        # 調整後の時間を出力
-        puts "調整後の開始: #{adjusted_start_time.strftime('%H:%M')}, 終了: #{adjusted_end_time.strftime('%H:%M')}"
-
         return [adjusted_start_time.strftime('%H:%M'), adjusted_end_time.strftime('%H:%M')]
       end
     end
