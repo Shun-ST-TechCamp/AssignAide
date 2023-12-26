@@ -57,9 +57,14 @@ end
     @date = params[:date] || Date.today
     @time_slot = params[:time_slot]
     @positions = Position.all
+
+    start_of_slot = Time.zone.parse("#{@date} #{Schedule::TIME_SLOTS[@time_slot][1]}")
+    end_of_slot = Time.zone.parse("#{@date} #{Schedule::TIME_SLOTS[@time_slot][2]}")
+
     @schedules = Schedule.includes(:cast, :position, :workday)
-                         .where('start_time >= ? AND end_time <= ?', start_of_time_slot, end_of_time_slot)
-                         .order(:start_time)
+                         .where(workday: { date: @date })
+                         .where('schedules.start_time >= ? AND schedules.end_time <= ?', start_of_time_slot, end_of_time_slot)
+                         .order('schedules.start_time')
   end
 
     private
