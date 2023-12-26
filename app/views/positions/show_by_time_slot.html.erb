@@ -8,7 +8,7 @@
   </tr>
   <% @positions.each do |position| %>
     <tr>
-      <td><%= position.position_name %></td>
+      <td><%= t("activerecord.attributes.position.#{position.position_name}") %></td>
       <td>
         <% @schedules.each do |schedule| %>
           <% if schedule.position_id == position.id %>
