@@ -32,4 +32,5 @@ Rails.application.routes.draw do
   get 'positions/day_after_tomorrow', to: 'positions#show_day_after_tomorrow', as: 'show_day_after_tomorrow_positions'
   get 'for_cast_on_date', to: 'workdays#for_cast_on_date'
   get 'schedules/for_cast_and_date', to: 'schedules#for_cast_and_date', as: 'cast_date_schedules'
+  get 'positions/time_slot/:time_slot', to: 'positions#show_by_time_slot', as: 'show_by_time_slot'
 end

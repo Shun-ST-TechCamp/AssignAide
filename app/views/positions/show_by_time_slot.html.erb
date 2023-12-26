@@ -1,0 +1,21 @@
+
+<h1>ポジション一覧 - <%= @date %></h1>
+<h2><%= Schedule::TIME_SLOTS[@time_slot]&.first || '未定義のタイムスロット' %></h2>
+<table>
+  <tr>
+    <th>ポジション名</th>
+    <th>キャスト名</th>
+  </tr>
+  <% @positions.each do |position| %>
+    <tr>
+      <td><%= position.position_name %></td>
+      <td>
+        <% @schedules.each do |schedule| %>
+          <% if schedule.position_id == position.id %>
+            <%= schedule.cast.full_name %><br>
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

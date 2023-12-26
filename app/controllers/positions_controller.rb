@@ -53,6 +53,15 @@ end
     @schedules_by_time_slot = build_schedules_by_time_slot(schedules)
   end
 
+  def show_by_time_slot
+    @date = params[:date] || Date.today
+    @time_slot = params[:time_slot]
+    @positions = Position.all
+    @schedules = Schedule.includes(:cast, :position, :workday)
+                         .where('start_time >= ? AND end_time <= ?', start_of_time_slot, end_of_time_slot)
+                         .order(:start_time)
+  end
+
     private
 
   def set_date_and_schedules
@@ -80,4 +89,13 @@ end
       end
     end
   end
+
+  def start_of_time_slot
+    Time.zone.parse("#{Date.today} #{Schedule::TIME_SLOTS[@time_slot][1]}")
+  end
+
+  def end_of_time_slot
+    Time.zone.parse("#{Date.today} #{Schedule::TIME_SLOTS[@time_slot][2]}")
+  end
+
 end
