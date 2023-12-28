@@ -63,11 +63,11 @@ end
 
     @schedules = Schedule.includes(:cast, :position, :workday)
                          .where(workday: { date: @date })
-                         .where('schedules.start_time >= ? AND schedules.end_time <= ?', start_of_time_slot, end_of_time_slot)
+                         .where('schedules.start_time >= ? AND schedules.end_time <= ?', start_of_slot, end_of_slot)
                          .order('schedules.start_time')
   end
 
-    private
+  private
 
   def set_date_and_schedules
     @date ||= Date.today 

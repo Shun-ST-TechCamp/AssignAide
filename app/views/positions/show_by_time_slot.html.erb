@@ -5,15 +5,27 @@
   <tr>
     <th>ポジション名</th>
     <th>キャスト名</th>
+    <th>操作</th>
   </tr>
   <% @positions.each do |position| %>
     <tr>
       <td><%= t("activerecord.attributes.position.#{position.position_name}") %></td>
       <td>
-        <% @schedules.each do |schedule| %>
-          <% if schedule.position_id == position.id %>
-            <%= schedule.cast.full_name %><br>
+        <% assigned_schedules = @schedules.select { |schedule| schedule.position_id == position.id } %>
+        <% if assigned_schedules.present? %>
+          <% assigned_schedules.each do |schedule| %>
+            <span><%= schedule.cast.full_name %></span><br>
           <% end %>
+        <% else %>
+          <span>割り当てなし</span>
+        <% end %>
+      </td>
+      <td>
+        <% assigned_schedules.each do |schedule| %>
+          <%= link_to '外す', remove_position_schedule_schedule_path(schedule), data: { turbo_method: :delete }, class: 'btn' %><br>
+        <% end %>
+        <% if assigned_schedules.count < position.capacity %>
+          <%= link_to '配置', new_position_schedule_schedules_path(position_id: position.id, date: @date, time_slot: @time_slot), class: 'btn' %>
         <% end %>
       </td>
     </tr>
