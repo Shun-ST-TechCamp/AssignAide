@@ -109,6 +109,7 @@ class SchedulesController < ApplicationController
       redirect_to positions_path and return
     end
   end
+  
   def remove_position_schedule
     schedule = Schedule.find(params[:id])
     if schedule.destroy
