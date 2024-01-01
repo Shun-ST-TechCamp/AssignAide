@@ -1,5 +1,5 @@
 class CastsController < ApplicationController
-  before_action :authenticate_cast!, only: [:index, :show, :edit, :update, :destroy]
+  before_action :authenticate_cast!
   load_and_authorize_resource
   helper_method :sort_column, :sort_direction
 

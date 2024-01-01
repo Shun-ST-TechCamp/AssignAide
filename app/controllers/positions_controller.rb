@@ -1,4 +1,6 @@
 class PositionsController < ApplicationController
+  before_action :authenticate_cast!
+
 def index
   @date = params[:date] || Date.today
   @positions = Position.all

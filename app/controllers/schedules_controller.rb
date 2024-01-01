@@ -1,7 +1,9 @@
 class SchedulesController < ApplicationController
-  helper_method :sort_column, :sort_direction
+  before_action :authenticate_cast!
   before_action :cast_all_map, only: [:new, :create, :edit, :update]
   before_action :set_schedule, only: [:edit, :update, :destroy]
+  helper_method :sort_column, :sort_direction
+
 
   def index
     @schedules = Schedule.joins(:cast).order(sort_column + " " + sort_direction)

@@ -1,4 +1,5 @@
 class WorkdaysController < ApplicationController
+  before_action :authenticate_cast!
   helper_method :sort_column, :sort_direction
 
   def index
