@@ -1,5 +1,6 @@
 class SchedulesController < ApplicationController
   before_action :authenticate_cast!
+  load_and_authorize_resource
   before_action :cast_all_map, only: [:new, :create, :edit, :update]
   before_action :set_schedule, only: [:edit, :update, :destroy]
   helper_method :sort_column, :sort_direction
@@ -169,6 +170,10 @@ class SchedulesController < ApplicationController
     end
 
     overlapping_schedules.count >= 3
+  end
+
+  def current_ability
+    @current_ability ||= ::Ability.new(current_cast)
   end
 
 end

@@ -1,5 +1,6 @@
 class PositionsController < ApplicationController
   before_action :authenticate_cast!
+  load_and_authorize_resource
 
 def index
   @date = params[:date] || Date.today
@@ -103,6 +104,12 @@ end
 
   def end_of_time_slot
     Time.zone.parse("#{Date.today} #{Schedule::TIME_SLOTS[@time_slot][2]}")
+  end
+
+  protected
+
+  def current_ability
+    @current_ability ||= ::Ability.new(current_cast)
   end
 
 end
