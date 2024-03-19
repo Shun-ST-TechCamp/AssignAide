@@ -6,6 +6,7 @@
   background-color: #9dc1f1;
   width: 300px;
   height: 100vh;
+  overflow: scroll;
 }
 
 .main-content {
