@@ -123,9 +123,23 @@
   font-size: 20px;
 }
 
+.resistration-title-photo{
+  display: flex;
+  justify-content: center;
+}
+
 .registration-image{
-  margin-top: -45px;
+  height: 150px; /* 写真の想定サイズに合わせて調整してください */
+  width: 200px; /* 幅も同様に調整 */
   text-align: center;
+  margin-bottom: 20px; /* 下部の余白も調整 */
+  overflow: hidden;
+}
+
+.registration-image img {
+  max-width: 100%; /* コンテナの幅に合わせて画像を拡大/縮小 */
+  max-height: 100%; /* コンテナの高さに合わせて画像を拡大/縮小 */
+  object-fit: contain; /* 画像の比率を維持しつつ、コンテナに合わせて最適なサイズに調整 */
 }
 
 /* ----------------------------------------------------------------- */
@@ -161,11 +175,19 @@
 
 .edit-title-name{
   display: flex;
+  flex-direction: column;
   text-align: center;
   justify-content: space-around;
 }
+
+.edit-title-photo{
+  display: flex;
+  justify-content: center;
+}
+
 .edit-user-name{
-  margin-top: 38px;
+  margin-top: -30px;
+  margin-bottom: 10px;
   color: rgb(206, 83, 83);
   text-align: center;
   font-size: 30px;
@@ -207,7 +229,15 @@
 }
 
 .edit-image{
-  margin-top: -25px;
-  margin-bottom: -25px;
+  height: 150px; /* 写真の想定サイズに合わせて調整してください */
+  width: 200px; /* 幅も同様に調整 */
   text-align: center;
+  margin-bottom: -15px; /* 下部の余白も調整 */
+  overflow: hidden;
+}
+
+.edit-image img {
+  max-width: 100%; /* コンテナの幅に合わせて画像を拡大/縮小 */
+  max-height: 100%; /* コンテナの高さに合わせて画像を拡大/縮小 */
+  object-fit: contain; /* 画像の比率を維持しつつ、コンテナに合わせて最適なサイズに調整 */
 }

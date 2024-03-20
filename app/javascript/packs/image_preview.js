@@ -9,7 +9,7 @@ document.addEventListener("turbo:load", function() {
 
       reader.onload = function(e) {
         if (preview) {
-          preview.innerHTML = '<img src="' + e.target.result + '" class="preview-image" style="max-width: 200px; max-height: 200px;" />';
+          preview.innerHTML = '<img src="' + e.target.result + '" class="preview-image" />';
         }
       };
 

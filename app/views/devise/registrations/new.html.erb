@@ -5,9 +5,9 @@
     <div class="resistration-title">
       <h2>キャスト登録</h2>
     </div>
-    
+    <div class="resistration-title-photo">
     <div class="registration-image" id="image-preview"></div>
-
+  </div>
     <div class="resistration-forms">
       <div class="resistration-form">
         <%= form_with model: @cast, url: cast_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
@@ -21,7 +21,7 @@
 
           <div class="ID-Email">
             <div class="resistration-font">
-              <%= f.label :id, "ID番号" %><br />
+              <%= f.label :company_id, "ID番号" %><br />
               <%= f.number_field :company_id %>
             </div>
 
