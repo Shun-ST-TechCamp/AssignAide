@@ -1,3 +1,6 @@
+/* ----------------------------------------------------------------- */
+/* ログイン画面 */
+/* ----------------------------------------------------------------- */
 .login-main{
   background-color: #9dc1f1;
   overflow: scroll;
@@ -9,8 +12,8 @@
 }
 
 .login-box{
-  background-color: #f1f7ff;
-  border: 0px solid ;
+  background-color: #e8f2ff;
+  border: 50px double #9dc1f1;
   border-radius: 1%;
   height: 80%;
   width: 80%;
@@ -19,7 +22,7 @@
 
 
 .login-title{
-  margin-top: 120px;
+  margin-top: 80px;
   color: brown;
   text-align: center;
   font-size: 35px;
@@ -53,4 +56,67 @@
 
 .device-link{
   margin: 10px 0px;
+}
+/* ----------------------------------------------------------------- */
+/* サインイン画面 */
+/* ----------------------------------------------------------------- */
+
+.resistrations-main{
+  background-color: #9dc1f1;
+  overflow: scroll;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.resistration-box{
+  background-color: #e8f2ff;
+  border: 50px double #9dc1f1;
+  border-radius: 1%;
+  height: 80%;
+  width: 80%;
+  
+}
+
+.resistration-title{
+  /* margin-top: 80px; */
+  color: brown;
+  text-align: center;
+  font-size: 35px;
+  
+}
+
+.resistration-forms{
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px auto;
+  padding: 10px;
+}
+
+.resistration-photo{
+  font-size: 20px;
+  margin-bottom: 20px;
+  text-align:center
+}
+
+.resistration-font{
+  font-size: 20px;
+  margin-bottom: 20px;
+  margin-right: 10px;
+}
+
+.ID-Email,.familyname-firstname,.resistration-Passwords{
+  display: flex;
+  justify-content: space-between;
+}
+
+.resistration-action{
+  text-align: center;
+  margin: 30px 0px;
+  
+  font-size: 20px;
 }

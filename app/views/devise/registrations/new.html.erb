@@ -1,50 +1,60 @@
-<div class="contents row">
-  <div class="container">
-    <h2>キャスト登録</h2>
-    <%= form_with model: @cast, url: cast_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
+<div class="resistrations-main">
+  <div class="resistration-box">
+    <div class="resistration-title">
+      <h2>キャスト登録</h2>
+    </div>
+    
+    <div class="resistration-forms">
+      <div class="resistration-form">
+        <%= form_with model: @cast, url: cast_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
 
-      <div class="field">
-        <%= f.label :image, "写真" %>
-        <%= f.file_field :image %>
-      </div>
+           <div class="resistration-photo">
+              <%= f.label :image, "写真" %>
+              <%= f.file_field :image %>
+           </div>
+          <div class="ID-Email">
+            <div class="resistration-font">
+              <%= f.label :id, "ID番号" %><br />
+              <%= f.number_field :company_id %>
+            </div>
 
-      <div class="field">
-        <%= f.label :id, "ID番号" %><br />
-        <%= f.number_field :company_id %>
-      </div>
-      
-      <div class="field">
-        <%= f.label :family_name, "名字（カナ）" %><br />
-        <%= f.text_field :family_name %>
-      </div>
+            <div class="resistration-font">
+              <%= f.label :email, "メールアドレス" %><br />
+              <%= f.email_field :email %>
+            </div>
+          </div>
+          <div class="familyname-firstname">
+            <div class="resistration-font">
+              <%= f.label :family_name, "名字（カナ）" %><br />
+              <%= f.text_field :family_name %>
+            </div>
 
-      <div class="field">
-        <%= f.label :first_name, "名前（カナ）" %><br />
-        <%= f.text_field :first_name %>
-      </div>
+            <div class="resistration-font">
+              <%= f.label :first_name, "名前（カナ）" %><br />
+              <%= f.text_field :first_name %>
+            </div>
+          </div>
+          <div class="resistration-Passwords">
+            <div class="resistration-font">
+              <%= f.label :password, "パスワード" %>
+              <% if @minimum_password_length %>
+                <em>(最低 <%= @minimum_password_length %> 文字必要)</em>
+              <% end %><br />
+              <%= f.password_field :password, autocomplete: "off" %>
+            </div>
+            <div class="resistration-font">
+              <%= f.label :password_confirmation, "パスワード（確認）" %><br />
+              <%= f.password_field :password_confirmation, autocomplete: "off" %>
+            </div>
+          </div>
 
-      <div class="field">
-        <%= f.label :email, "メールアドレス" %><br />
-        <%= f.email_field :email %>
+          <div class="resistration-action">
+            <%= f.submit "Sign up" %>
+          </div>
+        <% end %>
+        
       </div>
-
-      <div class="field">
-        <%= f.label :password, "パスワード" %>
-        <% if @minimum_password_length %>
-          <em>(最低 <%= @minimum_password_length %> 文字必要)</em>
-        <% end %><br />
-        <%= f.password_field :password, autocomplete: "off" %>
-      </div>
-
-      <div class="field">
-        <%= f.label :password_confirmation, "パスワード（確認）" %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "off" %>
-      </div>
-
-      <div class="actions">
-        <%= f.submit "Sign up" %>
-      </div>
-    <% end %>
+    </div>
   </div>
 </div>
