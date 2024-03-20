@@ -1,9 +1,13 @@
+<%= javascript_pack_tag 'image_preview' %>
+
 <div class="resistrations-main">
   <div class="resistration-box">
     <div class="resistration-title">
       <h2>キャスト登録</h2>
     </div>
     
+    <div class="registration-image" id="image-preview"></div>
+
     <div class="resistration-forms">
       <div class="resistration-form">
         <%= form_with model: @cast, url: cast_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
@@ -11,8 +15,10 @@
 
            <div class="resistration-photo">
               <%= f.label :image, "写真" %>
-              <%= f.file_field :image %>
+              <%= f.file_field :image, id: "image-input" %>
+
            </div>
+
           <div class="ID-Email">
             <div class="resistration-font">
               <%= f.label :id, "ID番号" %><br />
