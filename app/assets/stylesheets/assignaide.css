@@ -47,5 +47,35 @@
 }
 
 /* ----------------------------------------------------------------- */
-/* positions */
+/* positions/index */
 /* ----------------------------------------------------------------- */
+
+.positions-index{
+  background-color:#9dc1f1 ;
+  overflow: scroll;
+  height: 100vh;
+}
+
+.positions-index-title{
+  text-align: center;
+  color: brown;
+}
+
+.index-schedules{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.index-schedule{
+  flex: 1 1 48%; /* flex-grow, flex-shrink と flex-basis を設定 */
+  margin-right: 20px; /* 隣接する表との間隔 */
+  margin-bottom: 20px; /* 下の行の表との間隔 */
+}
+
+.index-schedule-timeslot{
+  text-align: center;
+}
+
+.index-brake-title{
+  text-align: center;
+}
