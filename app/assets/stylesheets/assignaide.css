@@ -79,3 +79,25 @@
 .index-brake-title{
   text-align: center;
 }
+
+/* .position-index-th {
+  font-family: 'Noto Sans JP', sans-serif;
+  
+} */
+
+.position-index-td {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.position-index-btn {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+.index-schedule table{
+  border: 3px solid rgb(111, 101, 202);
+  border-collapse: collapse;
+}
+
+.index-schedule th, .index-schedule td {
+  border: 1px solid rgb(111, 101, 202); /* セルの枠線の色と太さを設定 */
+  background-color: #9ef1ea ;
+}

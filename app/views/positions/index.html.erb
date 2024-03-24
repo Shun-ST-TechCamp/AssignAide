@@ -12,15 +12,15 @@
       </div>
       <table>
         <tr>
-          <th>ポジション名</th>
-          <th>キャスト名</th>
+          <th class="position-index-th">ポジション名</th>
+          <th class="position-index-th">キャスト名</th>
           <% if can?(:create, Schedule) || can?(:destroy, Schedule) %>
-            <th>操作</th>
+            <th class="position-index-th">操作</th>
           <% end %>
         </tr>
         <% @positions.each do |position| %>
           <tr>
-            <td><%= t("activerecord.attributes.position.#{position.position_name}") %></td>
+            <td class="position-index-td"><%= t("activerecord.attributes.position.#{position.position_name}") %></td>
             <td>
               <% assigned_schedules = schedules.select { |schedule| schedule.position_id == position.id } %>
               <% if assigned_schedules.present? %>
@@ -28,18 +28,18 @@
                   <span><%= schedule.cast.full_name %></span><br>
                 <% end %>
               <% else %>
-                <span>割り当てなし</span>
+                <span class="position-index-td">割り当てなし</span>
               <% end %>
             </td>
             <% if can?(:create, Schedule) || can?(:destroy, Schedule) %>
             <td>
             <% assigned_schedules.each do |schedule| %>
               <% if can?(:destroy, schedule) %>
-                <%= link_to '外す', remove_position_schedule_schedule_path(schedule), data: { turbo_method: :delete }, class: 'btn' %><br>
+                <%= link_to '外す', remove_position_schedule_schedule_path(schedule), data: { turbo_method: :delete }, class: 'position-index-btn' %><br>
               <% end %>
             <% end %>
               <% if can?(:create, Schedule) && assigned_schedules.count < position.capacity %>
-                <%= link_to '配置', new_position_schedule_schedules_path(position_id: position.id, date: @date, time_slot: time_slot), class: 'btn' %>
+                <%= link_to '配置', new_position_schedule_schedules_path(position_id: position.id, date: @date, time_slot: time_slot), class: 'position-index-btn' %>
               <% end %>
             </td>
           <% end %>
@@ -67,7 +67,7 @@
              <% end %>
             <% else %>
               <tr>
-                <td colspan="3">割り当てなし</td>
+                <td class="position-index-td" colspan="3">割り当てなし</td>
               </tr>
         <% end %>
       </table>
