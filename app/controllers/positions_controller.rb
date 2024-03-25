@@ -22,10 +22,8 @@ def index
       break_schedule_start = break_schedule.start_time.strftime("%H:%M")
       break_schedule_end = break_schedule.end_time.strftime("%H:%M")
       break_schedule_start >= time_slot_start.strftime("%H:%M") && break_schedule_end <= time_slot_end.strftime("%H:%M")
-    end.map do |break_schedule|
-      break_schedule
     end
-    
+
     hash[time_slot] = selected_schedules + break_schedules_for_slot
   end
 end
@@ -43,7 +41,7 @@ end
     schedules = Schedule.includes(:cast, :position, :workday) 
                         .where(workdays: { date: @date })
                         .order(:start_time)
-    @break_schedule = Schedule.where(workday: workdays, position: Position.find_by(position_name: 'brake'))
+    @break_schedules = Schedule.where(workday: workdays, position: Position.find_by(position_name: 'brake'))
 
     @schedules_by_time_slot = Schedule::TIME_SLOTS.keys.each_with_object({}) do |time_slot,hash|
       time_slot_start,time_slot_end = Schedule::TIME_SLOTS[time_slot][1..2].map { |t| Time.zone.parse("#{@date} #{t}")}
@@ -62,6 +60,7 @@ end
 
       hash[time_slot] = selected_schedules + break_schedules_for_slot
     end
+  end
   
   def show_day_after_tomorrow
     @date = Date.today + 2.days

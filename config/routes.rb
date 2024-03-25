@@ -33,4 +33,7 @@ Rails.application.routes.draw do
   get 'for_cast_on_date', to: 'workdays#for_cast_on_date'
   get 'schedules/for_cast_and_date', to: 'schedules#for_cast_and_date', as: 'cast_date_schedules'
   get 'positions/time_slot/:time_slot', to: 'positions#show_by_time_slot', as: 'show_by_time_slot'
+  get 'schedules/new_for_tomorrow' , to: 'schedules#new_position_schedule_for_tomorrow', as: 'new_for_tomorrow_schedule'
+  delete 'schedules/:id/remove_for_tomorrow', to: 'schedules#remove_position_schedule_for_tomorrow', as: 'remove_position_schedule_for_tomorrow'
+
 end
