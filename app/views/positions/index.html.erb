@@ -32,19 +32,19 @@
               <% end %>
             </td>
             <% if can?(:create, Schedule) || can?(:destroy, Schedule) %>
-            <td>
-            <% assigned_schedules.each do |schedule| %>
-              <% if can?(:destroy, schedule) %>
-                <%= link_to '外す', remove_position_schedule_schedule_path(schedule), data: { turbo_method: :delete }, class: 'position-index-btn' %><br>
+              <td>
+              <% assigned_schedules.each do |schedule| %>
+                <% if can?(:destroy, schedule) %>
+                  <%= link_to '外す', remove_position_schedule_schedule_path(schedule), data: { turbo_method: :delete }, class: 'position-index-btn' %><br>
+                <% end %>
               <% end %>
-            <% end %>
-              <% if can?(:create, Schedule) && assigned_schedules.count < position.capacity %>
-                <%= link_to '配置', new_position_schedule_schedules_path(position_id: position.id, date: @date, time_slot: time_slot), class: 'position-index-btn' %>
-              <% end %>
-            </td>
+                <% if can?(:create, Schedule) && assigned_schedules.count < position.capacity %>
+                  <%= link_to '配置', new_position_schedule_schedules_path(position_id: position.id, date: @date, time_slot: time_slot), class: 'position-index-btn' %>
+                <% end %>
+              </td>
           <% end %>
         </tr>
-      <% end %>
+        <% end %>
       </table>
 
       <%# ここに休憩スケジュールの表示を追加 %>
