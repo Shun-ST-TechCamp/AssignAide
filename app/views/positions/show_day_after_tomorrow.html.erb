@@ -1,20 +1,76 @@
-<h1>ポジション一覧 - <%= @date %></h1>
+<div class="positions-index">
+  <div class="positions-index-title">
+    <h1>ポジション一覧 - <%= @date %></h1>
+  </div>
 
-<% @schedules_by_time_slot.each do |time_slot, schedules| %>
-  <h2><%= Schedule::TIME_SLOTS[time_slot]&.first || '未定義のタイムスロット' %></h2>
-  <table>
-    <tr>
-      <th>ポジション名</th>
-      <th>キャスト名</th>
-    </tr>
-    <% @positions.each do |position| %>
-      <tr>
-        <td><%= t("activerecord.attributes.position.#{position.position_name}") %></td>
-        <td>
-          <% assigned_cast = schedules.find { |schedule| schedule.position_id == position.id } %>
-          <%= assigned_cast ? assigned_cast.cast.full_name : '' %>
-        </td>
-      </tr>
+  <div class="index-schedules">
+    <% @schedules_by_time_slot.each do |time_slot, schedules| %>
+    <div class="index-schedule">
+      <div class="index-schedule-timeslot">
+        <h2><%= Schedule::TIME_SLOTS[time_slot]&.first || '未定義のタイムスロット' %></h2>
+      </div>
+      <table>
+        <tr>
+          <th class="position-index-th">ポジション名</th>
+          <th class="position-index-th">キャスト名</th>
+          <% if can?(:create, Schedule) || can?(:destroy, Schedule) %>
+            <th class="position-index-th">操作</th>
+          <% end %>
+        </tr>
+        <% @positions.each do |position| %>
+          <tr>
+            <td class="position-index-td"><%= t("activerecord.attributes.position.#{position.position_name}") %></td>
+            <td>
+              <% assigned_schedules = schedules.select{ |schedule| schedule.position_id == position.id} %>
+              <% if assigned_schedules.present? %>
+                <% assigned_schedules.each do |schedule| %>
+                  <span><%= schedule.cast.full_name %></span><br>
+                <%end%>
+              <% else %>
+                <span class="position-index-td">割り当てなし</span>
+              <% end %>
+            </td>
+            <% if can?(:create, Schedule) || can?(:destroy,Schedule) %>
+              <td>
+                <% assigned_schedules.each do |schedule| %>
+                  <% if can?(:destroy, schedule) %>
+                    <%= link_to '外す', remove_position_schedule_for_day_after_tomorrow_path(schedule), data: { turbo_method: :delete }, class: 'position-index-btn' %><br>
+                  <% end %>
+                <% end %>
+                <% if can?(:create, Schedule) && assigned_schedules.count < position.capacity %>
+                  <%= link_to '配置', new_for_day_after_tomorrow_schedule_path(position_id: position.id, time_slot: time_slot), class: 'position-index-btn' %>
+                <% end %>
+              </td>
+            <%end%>
+          </tr>
+        <% end %>
+      </table>
+
+      <!-- 休憩スケジュールの表示 -->
+      <div class="index-brake-title"> <h3>休憩者</h3> </div>
+      <table>
+        <tr>
+          <th>キャスト名</th>
+          <th>開始時間</th>
+          <th>終了時間</th>
+        </tr>
+        <% brake_schedules = schedules.select { |schedule| schedule.position.position_name == 'brake' } %>
+       
+        <% if brake_schedules.present? %>
+          <% brake_schedules.each do |schedule| %>
+            <tr>
+              <td><%= schedule.cast.full_name %></td>
+              <td><%= schedule.start_time.strftime("%H:%M") %></td>
+              <td><%= schedule.end_time.strftime("%H:%M") %></td>
+            </tr>
+          <% end %>
+          <% else %>
+            <tr>
+              <td class="position-index-td" colspan="3">割り当てなし</td>
+            </tr>
+        <% end %>
+      </table>
+      </div>
     <% end %>
-  </table>
-<% end %>
+  </div>
+</div>
