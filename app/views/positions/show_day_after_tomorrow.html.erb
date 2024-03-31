@@ -50,9 +50,9 @@
       <div class="index-brake-title"> <h3>休憩者</h3> </div>
       <table>
         <tr>
-          <th>キャスト名</th>
-          <th>開始時間</th>
-          <th>終了時間</th>
+          <th class="position-index-th">キャスト名</th>
+          <th class="position-index-th">開始時間</th>
+          <th class="position-index-th">終了時間</th>
         </tr>
         <% brake_schedules = schedules.select { |schedule| schedule.position.position_name == 'brake' } %>
        
