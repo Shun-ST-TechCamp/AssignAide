@@ -1,26 +1,27 @@
-<h1><%= @workday.cast.full_name %>の勤務日・勤務時間編集</h1>
 
-<%= form_with(model: @workday, local: true) do |form| %>
-   <%= render 'layouts/error_messages', model: @workday %>
+  <h1><%= @workday.cast.full_name %>の勤務日・勤務時間編集</h1>
 
-  <div class="field">
-    <%= form.label :date %>
-    <%= form.date_field :date %>
-  </div>
+  <%= form_with(model: @workday, local: true) do |form| %>
+    <%= render 'layouts/error_messages', model: @workday %>
 
-  <div class="field">
-    <%= form.label :start_time %>
-    <%= form.time_field :start_time %>
-  </div>
+    <div class="field">
+      <%= form.label :date %>
+      <%= form.date_field :date %>
+    </div>
 
-  <div class="field">
-    <%= form.label :end_time %>
-    <%= form.time_field :end_time %>
-  </div>
+    <div class="field">
+      <%= form.label :start_time %>
+      <%= form.time_field :start_time %>
+    </div>
 
-  <div class="actions">
-    <%= form.submit "更新" %>
-  </div>
-<% end %>
+    <div class="field">
+      <%= form.label :end_time %>
+      <%= form.time_field :end_time %>
+    </div>
 
-<%= link_to '戻る', workdays_path %>
+    <div class="actions">
+      <%= form.submit "更新" %>
+    </div>
+  <% end %>
+
+  <%= link_to '戻る', workdays_path %>

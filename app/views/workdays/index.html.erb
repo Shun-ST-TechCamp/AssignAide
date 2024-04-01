@@ -1,37 +1,48 @@
 <!-- workdays/index.html.erb -->
-<h1>勤務日・勤務時間一覧</h1>
+<div class = "workday-index"> 
+    <h1 class="workday-index-title" >勤務日・勤務時間一覧</h1>
+  <div class="workday-index-button-container">
+    <%= link_to "勤務日を追加", new_workday_path, class:"workday-index-new_workday-btn" %>
+  </div> 
 
-<%= link_to "勤務日を追加", new_workday_path %>
-
-<% @workdays_by_date.each do |date, workdays| %>
-  <h2><%= date.strftime("%Y-%m-%d") %>
-    <% if date < Date.today %>
-      <%= link_to 'この日のデータを削除', destroy_by_date_workdays_path(date: date), data: { turbo_method: :delete, confirm: "#{date} のデータを本当に削除しますか？" } %>
-    <% end %>
-  </h2>
-  <table>
-    <thead>
-      <tr>
-        <th><%= link_to "キャスト名", workdays_path(sort_for_date: date, sort_column_for_date: "casts.family_name", sort_direction_for_date: toggle_sort_direction(date, "casts.family_name")) %></th>
-        <th><%= link_to "開始時間", workdays_path(sort_for_date: date, sort_column_for_date: "start_time", sort_direction_for_date: toggle_sort_direction(date, "start_time")) %></th>
-        <th><%= link_to "終了時間", workdays_path(sort_for_date: date, sort_column_for_date: "end_time", sort_direction_for_date: toggle_sort_direction(date, "end_time")) %></th>
-        <th>休憩時間</th>
-        <th>操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% workdays.each do |workday| %>
-        <tr>
-          <td><%= link_to workday.cast.full_name, cast_date_schedules_path(cast_id: workday.cast_id, date: workday.date) %></td>
-          <td><%= workday.start_time.strftime("%H:%M") %></td>
-          <td><%= workday.end_time.strftime("%H:%M") %></td>
-          <td><%= workday.break_time %> 分</td>
-          <td>
-            <%= link_to '編集', edit_workday_path(workday) %>
-            <%= link_to '削除', workday, data: { turbo_method: :delete, confirm: '本当に削除しますか？' } %>
-          </td>
-        </tr>
+  <div class="index-workday">
+    <div class="index-workdays">
+      <% @workdays_by_date.each do |date, workdays| %>
+        <div class="index-workday-days">
+          <h2 class="workday-index-date"><%= date.strftime("%Y-%m-%d") %>
+            <% if date < Date.today %>
+              <%= link_to 'この日のデータを削除', destroy_by_date_workdays_path(date: date), data: { turbo_method: :delete, confirm: "#{date} のデータを本当に削除しますか？"},class:"workday-index-date-delete" %>
+            <% else %>
+              <div class="workday-index-date-non-delete" >　　　　　　　　　　　</div>
+            <% end %>
+          </h2>
+          <table>
+            <thead>
+              <tr>
+                <th><%= link_to "キャスト名", workdays_path(sort_for_date: date, sort_column_for_date: "casts.family_name", sort_direction_for_date: toggle_sort_direction(date, "casts.family_name")) %></th>
+                <th><%= link_to "開始時間", workdays_path(sort_for_date: date, sort_column_for_date: "start_time", sort_direction_for_date: toggle_sort_direction(date, "start_time")) %></th>
+                <th><%= link_to "終了時間", workdays_path(sort_for_date: date, sort_column_for_date: "end_time", sort_direction_for_date: toggle_sort_direction(date, "end_time")) %></th>
+                <th>休憩時間</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% workdays.each do |workday| %>
+                <tr >
+                  <td><%= link_to workday.cast.full_name, cast_date_schedules_path(cast_id: workday.cast_id, date: workday.date) %></td>
+                  <td><%= workday.start_time.strftime("%H:%M") %></td>
+                  <td><%= workday.end_time.strftime("%H:%M") %></td>
+                  <td><%= workday.break_time %> 分</td>
+                  <td>
+                    <%= link_to '編集', edit_workday_path(workday) %>
+                    <%= link_to '削除', workday, data: { turbo_method: :delete, confirm: '本当に削除しますか？' } %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       <% end %>
-    </tbody>
-  </table>
-<% end %>
+    </div>
+  </div>
+</div>

@@ -64,15 +64,20 @@
 .index-schedules{
   display: flex;
   flex-wrap: wrap;
+  
 }
 
 .index-schedule{
-  flex: 1 1 48%; /* flex-grow, flex-shrink と flex-basis を設定 */
-  margin-right: 20px; /* 隣接する表との間隔 */
-  margin-bottom: 20px; /* 下の行の表との間隔 */
+  flex: 1 1 40%; /* flex-grow, flex-shrink と flex-basis を設定 */
+  margin:0px 20px 20px 20px; /* 隣接する表との間隔 */
+  padding: 1%;
+  border: #4a74e9 double 10px ;
+  border-radius: 5%;
+  background-color: #bdd5f5;
 }
 
 .index-schedule-timeslot{
+  margin-top: -10px;
   text-align: center;
 }
 
@@ -80,10 +85,10 @@
   text-align: center;
 }
 
-/* .position-index-th {
+.position-index-th {
   font-family: 'Noto Sans JP', sans-serif;
   
-} */
+}
 
 .position-index-td {
   font-family: 'Noto Sans JP', sans-serif;
@@ -103,5 +108,124 @@
 }
 
 /* ----------------------------------------------------------------- */
+/* positions/timeslot別の表示 */
+/* ----------------------------------------------------------------- */
+
+.show_by_time_slot-schedules{
+  display: flex;
+  justify-content: center;
+}
+
+.show_by_time_slot-schedule{
+  width: 80%;
+
+  /* flex: 1 1 40%;  flex-grow, flex-shrink と flex-basis を設定 */
+  margin:0px 20px 20px 20px; /* 隣接する表との間隔 */
+  padding: 3% 2%;
+  border: #4a74e9 double 10px ;
+  border-radius: 5%;
+  background-color: #bdd5f5;
+}
+
+.show_by_time_slot-schedule-timeslot{
+  text-align: center;
+  margin-top: -30px;
+  margin-bottom: 50px;
+}
+
+.show_by_time_slot-schedule table{
+  border: 3px solid rgb(111, 101, 202);
+  border-collapse: collapse;
+}
+
+.show_by_time_slot-schedule th, .show_by_time_slot-schedule td {
+  border: 1px solid rgb(111, 101, 202); /* セルの枠線の色と太さを設定 */
+  background-color: #9ef1ea ;
+}
+
+/* ----------------------------------------------------------------- */
 /* workdays */
 /* ----------------------------------------------------------------- */
+
+.workday-index{
+  background-color:#9dc1f1 ;
+  overflow: scroll;
+  height: 100vh;
+}
+
+.workday-index-title{
+  text-align: center;
+  color: brown;
+}
+
+.workday-index-new_workday-btn{
+  display: inline-block;
+  margin: 0 auto;
+  padding: 2px 5px; 
+  border: #4a74e9 solid 3px;
+  background-color: rgb(216, 255, 193);
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center; 
+  text-decoration: none;
+}
+
+.workday-index-button-container {
+  text-align: center;
+}
+.index-workdays{
+  display: flex;
+  flex-wrap: wrap;
+ 
+  
+}
+.workday-index-date{
+  display: flex;
+  justify-content: space-around;
+ }
+
+.workday-index-date-delete{
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 16px;
+  padding: 2px 5px; 
+  border: #4a74e9 solid 3px;
+  background-color: rgb(216, 255, 193);
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center; 
+  text-decoration: none;
+  
+}
+
+.workday-index-date-non-delete{
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 16px;
+  color: #000000;
+  font-weight: bold;
+  text-align: center; 
+}
+
+.index-workday-days{
+  flex: 1 1 40%; /* flex-grow, flex-shrink と flex-basis を設定 */
+  margin:20px; /* 隣接する表との間隔 */
+  border: #4a74e9 double 10px ;
+  border-radius: 8%;
+  background-color: #bdd5f5;
+  padding-bottom: 20px;
+}
+
+.index-workday th, .index-workday td {
+  border: 1px solid rgb(1, 1, 2); /* セルの枠線の色と太さを設定 */
+  background-color: #9ef1ea ;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.index-workday table{
+  width: 85%;
+  border: 3px solid rgb(111, 101, 202);
+  border-collapse: collapse;
+  font-family: 'Noto Sans JP', sans-serif;
+  
+}
+
+
