@@ -1,6 +1,7 @@
 .casts-index {
   background-color:#9dc1f1 ;
   width: calc(100vw - 300px);  
+  height: 100vh;
   overflow: auto;
 }
 
@@ -17,15 +18,7 @@ table {
   text-align: center; 
 }
 
-th, td {
-  border: 1px solid #ddd; 
-  padding: 8px; 
-}
 
-th {
-  background-color: #f2f2f2; 
-  color: black; 
-}
 
 .cast-on{
   margin: 30px 0 30px 20%;
@@ -35,4 +28,17 @@ th {
   width: 200px;
   height: 200px;
   object-fit: cover; 
+}
+
+.casts-index-casts th, .casts-index-casts td {
+  border: 1px solid rgb(1, 1, 2); /* セルの枠線の色と太さを設定 */
+  background-color: #9ef1ea ;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.casts-index-casts table{
+  width: 85%;
+  border: 3px solid rgb(111, 101, 202);
+  border-collapse: collapse;
+  font-family: 'Noto Sans JP', sans-serif;
 }

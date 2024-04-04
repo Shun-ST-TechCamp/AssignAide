@@ -209,7 +209,7 @@
   flex: 1 1 40%; /* flex-grow, flex-shrink と flex-basis を設定 */
   margin:20px; /* 隣接する表との間隔 */
   border: #4a74e9 double 10px ;
-  border-radius: 8%;
+  border-radius: 0%;
   background-color: #bdd5f5;
   padding-bottom: 20px;
 }
