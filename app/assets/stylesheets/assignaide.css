@@ -207,6 +207,7 @@
 
 .index-workday-days{
   flex: 1 1 40%; /* flex-grow, flex-shrink と flex-basis を設定 */
+  max-width: 47.5%;
   margin:20px; /* 隣接する表との間隔 */
   border: #4a74e9 double 10px ;
   border-radius: 0%;
@@ -229,3 +230,52 @@
 }
 
 
+.new-workdays{
+  margin: 50px auto 0 auto;
+  padding: 50px 0;
+  width: 30%; 
+  border-collapse: collapse; 
+  text-align: center; 
+  border: #4a74e9 double 10px ;
+  border-radius: 5%;
+  background-color: #bdd5f5;
+
+}
+
+.new-workdays .field{
+  margin: 10px 0;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.new-workdays .actions{
+  margin-top: 50px;
+}
+
+.new-workdays .form-control,.form-control-time{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 50px;
+  margin-bottom: 10px;
+}
+
+.new-workdays .form-control label{
+  min-width: 100px;
+  margin-right: 10px;
+}
+
+.new-workdays .form-control-time label{
+  min-width: 100px;
+  margin-right: 10px;
+}
+.new-workdays .form-control select,
+.new-workdays .form-control input {
+  margin:0 10% 0 0;
+  width: 200px;
+}
+
+.new-workdays .form-control-time select,
+.new-workdays .form-control-time input {
+  margin:0 10% 0 0;
+  width: 100px;
+}
