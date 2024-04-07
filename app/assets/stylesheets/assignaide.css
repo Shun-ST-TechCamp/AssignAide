@@ -61,13 +61,13 @@
   color: brown;
 }
 
-.index-schedules{
+.index-positions{
   display: flex;
   flex-wrap: wrap;
   
 }
 
-.index-schedule{
+.index-position{
   flex: 1 1 40%; /* flex-grow, flex-shrink と flex-basis を設定 */
   margin:0px 20px 20px 20px; /* 隣接する表との間隔 */
   padding: 1%;
@@ -76,7 +76,7 @@
   background-color: #bdd5f5;
 }
 
-.index-schedule-timeslot{
+.index-position-timeslot{
   margin-top: -10px;
   text-align: center;
 }
@@ -97,12 +97,12 @@
 .position-index-btn {
   font-family: 'Noto Sans JP', sans-serif;
 }
-.index-schedule table{
+.index-position table{
   border: 3px solid rgb(111, 101, 202);
   border-collapse: collapse;
 }
 
-.index-schedule th, .index-schedule td {
+.index-position th, .index-position td {
   border: 1px solid rgb(111, 101, 202); /* セルの枠線の色と太さを設定 */
   background-color: #9ef1ea ;
 }
@@ -173,7 +173,7 @@
 .workday-index-button-container {
   text-align: center;
 }
-.index-workdays{
+.index-workday{
   display: flex;
   flex-wrap: wrap;
  
@@ -228,7 +228,11 @@
   font-family: 'Noto Sans JP', sans-serif;
   
 }
-
+.new-workday{
+  height: 70vh;
+  display: flex;
+  align-items: center;
+}
 
 .new-workdays{
   margin: 50px auto 0 auto;
@@ -290,4 +294,39 @@
 .new-workdays .form-control-days input {
   margin:0 10% 0 0;
   width: 120px;
+}
+
+/* ----------------------------------------------------------------- */
+/* schedules */
+/* ----------------------------------------------------------------- */
+
+.schedules-forcast-index{
+  background-color:#9dc1f1 ;
+  overflow: scroll;
+  height: 100vh;
+}
+
+.schedules-index-title{
+  text-align: center;
+  color: brown;
+}
+
+.index-schedule{
+  display: flex;
+  flex-wrap: wrap;
+  
+}
+
+.index-schedules th,.index-schedules td{
+  border: 1px solid rgb(1, 1, 2); /* セルの枠線の色と太さを設定 */
+  background-color: #9ef1ea ;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.index-schedules table{
+  width: 85%;
+  border: 3px solid rgb(111, 101, 202);
+  border-collapse: collapse;
+  font-family: 'Noto Sans JP', sans-serif;
+  
 }

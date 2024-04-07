@@ -5,8 +5,8 @@
     <%= link_to "勤務日を追加", new_workday_path, class:"workday-index-new_workday-btn" %>
   </div> 
 
-  <div class="index-workday">
-    <div class="index-workdays">
+  <div class="index-workdays">
+    <div class="index-workday">
       <% @workdays_by_date.each do |date, workdays| %>
         <div class="index-workday-days">
           <h2 class="workday-index-date"><%= date.strftime("%Y-%m-%d") %>

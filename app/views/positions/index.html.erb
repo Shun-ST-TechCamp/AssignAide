@@ -4,10 +4,10 @@
     <h1>ポジション一覧 - <%= @date %></h1>
   </div>
 
-  <div class="index-schedules">
+  <div class="index-positions">
     <% @schedules_by_time_slot.each do |time_slot, schedules| %>
-    <div class="index-schedule">
-      <div class="index-schedule-timeslot">
+    <div class="index-position">
+      <div class="index-position-timeslot">
         <h2><%= Schedule::TIME_SLOTS[time_slot]&.first || '未定義のタイムスロット' %></h2>
       </div>
       <table>

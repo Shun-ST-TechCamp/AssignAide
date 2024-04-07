@@ -3,39 +3,40 @@
 
   <%= form_with(model: @workday, local: true) do |form| %>
     <%= render 'layouts/error_messages', model: @workday %>
-    
-  <div class="new-workdays">
-    <div class="field">
-      <div class="form-control">
-        <%= form.label :cast_id,"キャスト" %>
-        <%= form.select :cast_id, @casts, { include_blank: true } %>
+  <div class="new-workday"> 
+    <div class="new-workdays">
+      <div class="field">
+        <div class="form-control">
+          <%= form.label :cast_id,"キャスト" %>
+          <%= form.select :cast_id, @casts, { include_blank: true } %>
+        </div>
       </div>
-    </div>
 
-    <div class="field">
-      <div class="form-control-days">
-        <%= form.label :date,"日時" %>
-        <%= form.date_field :date %>
+      <div class="field">
+        <div class="form-control-days">
+          <%= form.label :date,"日時" %>
+          <%= form.date_field :date %>
+        </div>
       </div>
-    </div>
 
-    <div class="field">
-      <div class="form-control-time">
-        <%= form.label :start_time,"開始時間" %>
-        <%= form.time_field :start_time %>
+      <div class="field">
+        <div class="form-control-time">
+          <%= form.label :start_time,"開始時間" %>
+          <%= form.time_field :start_time %>
+        </div>
       </div>
-    </div>
 
-    <div class="field">
-      <div class="form-control-time">
-        <%= form.label :end_time,"終了時間" %>
-        <%= form.time_field :end_time %>
+      <div class="field">
+        <div class="form-control-time">
+          <%= form.label :end_time,"終了時間" %>
+          <%= form.time_field :end_time %>
+        </div>
       </div>
-    </div>
 
-    <div class="actions">
-      <%= form.submit "作成する" %>
-    </div>
-  <div>
+      <div class="actions">
+        <%= form.submit "作成する" %>
+      </div>
+    <div>
+  </div>
 </div>
   <% end %>

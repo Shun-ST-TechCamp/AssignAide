@@ -1,22 +1,26 @@
-<h1><%= @cast.full_name %> のスケジュール - <%= @date.strftime("%Y-%m-%d") %></h1>
-
-<table>
-  <thead>
-    <tr>
-      <th><%= link_to "ポジション名", cast_date_schedules_path(cast_id: @cast.id, date: @date, sort: "positions.position_name", direction: "asc") %></th>
-      <th><%= link_to "スタートタイム", cast_date_schedules_path(cast_id: @cast.id, date: @date, sort: "start_time", direction: "asc") %></th>
-      <th><%= link_to "エンドタイム", cast_date_schedules_path(cast_id: @cast.id, date: @date, sort: "end_time", direction: "asc") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @schedules.each do |schedule| %>
-      <tr>
-        <td><%= t("activerecord.attributes.position.#{schedule.position.position_name}") %></td>
-        <td><%= schedule.start_time.strftime("%H:%M") %></td>
-        <td><%= schedule.end_time.strftime("%H:%M") %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<div class = "schedules-forcast-index"> 
+  <h1 class="schedules-index-title"><%= @cast.full_name %> のスケジュール - <%= @date.strftime("%Y-%m-%d") %></h1>
+  <div class="index-schedules">
+    <div class="index-schedule">
+      <table>
+        <thead>
+          <tr>
+            <th><%= link_to "ポジション名", cast_date_schedules_path(cast_id: @cast.id, date: @date, sort: "positions.position_name", direction: "asc") %></th>
+            <th><%= link_to "スタートタイム", cast_date_schedules_path(cast_id: @cast.id, date: @date, sort: "start_time", direction: "asc") %></th>
+            <th><%= link_to "エンドタイム", cast_date_schedules_path(cast_id: @cast.id, date: @date, sort: "end_time", direction: "asc") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @schedules.each do |schedule| %>
+            <tr>
+              <td><%= t("activerecord.attributes.position.#{schedule.position.position_name}") %></td>
+              <td><%= schedule.start_time.strftime("%H:%M") %></td>
+              <td><%= schedule.end_time.strftime("%H:%M") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 <%= link_to '戻る', workdays_path %>
