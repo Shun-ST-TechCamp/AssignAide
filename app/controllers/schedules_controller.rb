@@ -32,7 +32,11 @@ class SchedulesController < ApplicationController
     end
   
     if @schedule.save
-      redirect_to positions_path
+      if params[:schedule][:redirect_to_tomorrow] == "true"
+        redirect_to show_tomorrow_positions_path
+      else
+        redirect_to positions_path
+      end
     else
       render :new, status: :unprocessable_entity
     end

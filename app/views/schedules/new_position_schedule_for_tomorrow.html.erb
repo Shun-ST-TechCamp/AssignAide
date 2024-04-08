@@ -1,5 +1,5 @@
-<%# schedules/new_position_schedule_schedule.html.erb %>
-<div class="new_position_schedule_schedule">
+<%# schedules/new_position_schedule_schedule_for_tomorrow.html.erb %>
+<div class="new_position_schedule_schedule_for_tomorrow">
   <%= form_for @schedule, url: schedules_path do |f| %>
     <%= f.hidden_field :position_id, value: @position_id %>
     <%= f.hidden_field :time_slot, value: @time_slot %>
@@ -9,6 +9,8 @@
 
     <%= f.label :workday_id, "ワークデイ選択" %>
     <%= f.collection_select :workday_id, @available_workdays, :id, :date, prompt: "ワークデイを選択してください", id: "schedule_workday_id" %>
+
+      <%= f.hidden_field :redirect_to_tomorrow, value: "true" %> 
 
     <%= f.submit "スケジュールを作成" %>
 </div>
